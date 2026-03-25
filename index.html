@@ -155,7 +155,7 @@ textarea { resize: vertical; min-height: 56px; }
       4. Dans "Origines JS autorisées" : ajoutez l'URL où vous hébergez ce fichier (ou <code>http://localhost</code> pour tester)<br>
       5. Activez l'<strong>API Google Sheets</strong> dans votre projet<br>
       6. Copiez votre Client ID et remplacez dans ce fichier :<br>
-      <code>const CLIENT_ID = '665037505291-gl5cm61huih7a95ju8v42q1vhld90o5o.apps.googleusercontent.com';</code>
+      <code>const CLIENT_ID = 'VOTRE_CLIENT_ID.apps.googleusercontent.com';</code>
     </div>
   </div>
 
@@ -295,9 +295,9 @@ textarea { resize: vertical; min-height: 56px; }
 const SHEET_ID   = '1Ra0YTuxRcW4ONcreowPMWAW1L0qAJEpo-DmwFPz0UBl';
 const CLIENT_ID  = '665037505291-d5ukeotro0bktadudonmajsrgpj3kltv.apps.googleusercontent.com';  // ← Collez votre Client ID Google ici
 
-// Noms exacts des feuilles dans votre Google Sheet
-const FEUILLE_RESERVATIONS = 'Réservations';
-const FEUILLES_MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+// Noms détectés automatiquement à la connexion
+let FEUILLE_RESERVATIONS = 'Réservations';
+let FEUILLES_MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 
 // Ligne de chaque chambre dans les feuilles mensuelles
 const ROOM_ROWS = {L1:4,L2:5,L3:6,L4:7,L5:8,B1:10,B2:11,B3:12,B4:13,B5:14,P1:16,P2:17,P3:18,P4:19,P5:20,C1:22,C2:23,C3:24,F2:26,F1:27};
@@ -327,7 +327,33 @@ function signIn() {
           <div class="user-badge">${ui.picture ? `<img src="${ui.picture}">` : ''}${nom}</div>
           <button class="btn btn-light" onclick="signOut()">🔓 Déconnexion</button>`;
       } catch(e) {}
-      document.getElementById('statusDisplay').textContent = '✓ Connecté — planning_chez_alice_2026_NEUF';
+      // ── Détection automatique des noms de feuilles ──
+      try {
+        const meta = await getSheetMeta();
+        const sheetNames = Object.keys(meta);
+        console.log('📋 Feuilles détectées :', sheetNames);
+
+        // Trouver la feuille Réservations
+        const resSheet = sheetNames.find(n =>
+          n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes('reservation')
+        );
+        if (resSheet) FEUILLE_RESERVATIONS = resSheet;
+
+        // Trouver les feuilles mensuelles
+        const moisRef = ['janv','fevr','févr','mars','avri','mai','juin','juil','aout','août','sept','octo','nove','dece','déce'];
+        const detected = sheetNames.filter(n => {
+          const low = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          return moisRef.some(m => low.includes(m));
+        });
+        if (detected.length >= 10) FEUILLES_MOIS = detected;
+
+        document.getElementById('statusDisplay').textContent =
+          `✓ Connecté — ${resSheet || 'Réservations'} + ${detected.length} feuilles mois`;
+      } catch(e) {
+        console.warn('Détection feuilles échouée :', e);
+        document.getElementById('statusDisplay').textContent = '✓ Connecté (noms feuilles par défaut)';
+      }
+
       document.getElementById('screen-login').style.display = 'none';
       document.getElementById('screen-form').style.display = 'block';
       const today = new Date(), fmt = d => d.toISOString().split('T')[0];
@@ -356,8 +382,13 @@ function signOut() {
 const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 
 async function apiGet(range) {
-  const r = await fetch(`${API}/values/${encodeURIComponent(range)}`, { headers: { Authorization: 'Bearer ' + accessToken } });
-  if (!r.ok) throw new Error('Lecture échouée ('+r.status+')');
+  const url = `${API}/values/${encodeURIComponent(range)}`;
+  const r = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
+  if (!r.ok) {
+    const errBody = await r.json().catch(() => ({}));
+    const msg = errBody?.error?.message || r.status;
+    throw new Error(`Lecture échouée (${r.status}) — "${range}" : ${msg}`);
+  }
   return r.json();
 }
 
