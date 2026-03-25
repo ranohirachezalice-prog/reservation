@@ -337,21 +337,27 @@ function signIn() {
         const resSheet = sheetNames.find(n =>
           n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes('reservation')
         );
-        if (resSheet) FEUILLE_RESERVATIONS = resSheet;
+        if (resSheet) {
+          FEUILLE_RESERVATIONS = resSheet;
+          console.log('✅ Feuille réservations :', resSheet);
+        } else {
+          console.warn('⚠️ Feuille réservations non trouvée, noms disponibles :', sheetNames);
+        }
 
-        // Trouver les feuilles mensuelles
-        const moisRef = ['janv','fevr','févr','mars','avri','mai','juin','juil','aout','août','sept','octo','nove','dece','déce'];
+        // Trouver les feuilles mensuelles — matching plus large
+        const moisNorm = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
         const detected = sheetNames.filter(n => {
-          const low = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-          return moisRef.some(m => low.includes(m));
+          const low = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+          return moisNorm.some(m => low === m || low.includes(m));
         });
-        if (detected.length >= 10) FEUILLES_MOIS = detected;
+        console.log('📅 Feuilles mois détectées :', detected);
+        if (detected.length >= 3) FEUILLES_MOIS = detected;
 
         document.getElementById('statusDisplay').textContent =
-          `✓ Connecté — ${resSheet || 'Réservations'} + ${detected.length} feuilles mois`;
+          `✓ Connecté — ${resSheet || '⚠️ feuille?'} · ${detected.length} mois détectés`;
       } catch(e) {
         console.warn('Détection feuilles échouée :', e);
-        document.getElementById('statusDisplay').textContent = '✓ Connecté (noms feuilles par défaut)';
+        document.getElementById('statusDisplay').textContent = '✓ Connecté (vérifier noms feuilles)';
       }
 
       document.getElementById('screen-login').style.display = 'none';
@@ -382,7 +388,8 @@ function signOut() {
 const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 
 async function apiGet(range) {
-  const url = `${API}/values/${encodeURIComponent(range)}`;
+  // Ne pas encoder le range — Google Sheets API accepte le range brut
+  const url = `${API}/values/${range.replace(/#/g,'%23')}`;
   const r = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
   if (!r.ok) {
     const errBody = await r.json().catch(() => ({}));
@@ -393,7 +400,8 @@ async function apiGet(range) {
 }
 
 async function apiAppend(range, values) {
-  const r = await fetch(`${API}/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, {
+  const url = `${API}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+  const r = await fetch(url, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
     body: JSON.stringify({ values })
