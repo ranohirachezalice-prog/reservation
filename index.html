@@ -69,28 +69,10 @@ textarea { resize: vertical; min-height: 56px; }
 .logement-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 4px; }
 .logement-group { margin-bottom: 10px; }
 .logement-group-title { font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid #eee; }
-
-.loge-btn {
-  padding: 7px 4px; text-align: center; font-size: 13px; font-weight: bold;
-  border: 1.5px solid #ddd; border-radius: 6px; cursor: pointer;
-  background: white; color: #444; transition: all 0.15s; user-select: none;
-}
-.loge-btn:hover:not(.blocked) { border-color: #6B1A2A; color: #6B1A2A; }
+.loge-btn { padding: 7px 4px; text-align: center; font-size: 13px; font-weight: bold; border: 1.5px solid #ddd; border-radius: 6px; cursor: pointer; background: white; color: #444; transition: all 0.15s; user-select: none; }
+.loge-btn:hover { border-color: #6B1A2A; color: #6B1A2A; }
 .loge-btn.selected { background: #6B1A2A; color: white; border-color: #6B1A2A; }
-/* Chambre bloquée = déjà réservée sur les dates choisies */
-.loge-btn.blocked {
-  background: #f5e8e8; color: #c0392b; border-color: #e8b4b4;
-  cursor: not-allowed; opacity: 0.85;
-}
-.loge-btn.blocked::after { content: ' 🔒'; font-size: 10px; }
-
 .selected-logements { margin-top: 8px; font-size: 13px; color: #6B1A2A; font-weight: bold; min-height: 20px; }
-
-.dispo-info {
-  font-size: 12px; color: #888; margin-top: 6px;
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.dispo-info span { display: flex; align-items: center; gap: 4px; }
 
 .summary-box { background: #fdf5f6; border: 1.5px solid #d4a0a8; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.8; }
 .summary-box strong { color: #6B1A2A; }
@@ -137,6 +119,7 @@ textarea { resize: vertical; min-height: 56px; }
 
 <div class="main">
 
+  <!-- LOGIN -->
   <div id="screen-login">
     <div class="login-card">
       <div class="icon">🏨</div>
@@ -155,7 +138,9 @@ textarea { resize: vertical; min-height: 56px; }
     </div>
   </div>
 
+  <!-- FORM -->
   <div id="screen-form">
+
     <div class="summary-box" id="summaryBox" style="display:none">
       <div id="summaryContent"></div>
     </div>
@@ -170,11 +155,11 @@ textarea { resize: vertical; min-height: 56px; }
           </div>
           <div class="form-group">
             <label>Date d'arrivée *</label>
-            <input type="date" id="dateArrivee" onchange="onDateChange()">
+            <input type="date" id="dateArrivee" onchange="updateSummary()">
           </div>
           <div class="form-group">
             <label>Date de départ *</label>
-            <input type="date" id="dateDepart" onchange="onDateChange()">
+            <input type="date" id="dateDepart" onchange="updateSummary()">
           </div>
           <div class="form-group">
             <label>Nombre de personnes *</label>
@@ -217,62 +202,51 @@ textarea { resize: vertical; min-height: 56px; }
     <div class="section-card">
       <div class="section-header">🏠 Logement(s)</div>
       <div class="section-body">
-
-        <div class="dispo-info">
-          <span>🟢 Disponible</span>
-          <span>🔒 Déjà réservé sur ces dates</span>
-          <span>✅ Sélectionné</span>
-          <span id="dispoStatus" style="color:#6B1A2A;font-weight:bold;"></span>
-        </div>
-
-        <div style="margin-top:12px;">
-          <div class="logement-group">
-            <div class="logement-group-title">── Spacieux (142 000 Ar) ──</div>
-            <div class="logement-grid">
-              <div class="loge-btn" data-room="L1" onclick="toggleRoom(this)">L1</div>
-              <div class="loge-btn" data-room="L2" onclick="toggleRoom(this)">L2</div>
-              <div class="loge-btn" data-room="L3" onclick="toggleRoom(this)">L3</div>
-              <div class="loge-btn" data-room="L4" onclick="toggleRoom(this)">L4</div>
-              <div class="loge-btn" data-room="L5" onclick="toggleRoom(this)">L5</div>
-            </div>
-          </div>
-          <div class="logement-group">
-            <div class="logement-group-title">── Classique (92 000 Ar) ──</div>
-            <div class="logement-grid">
-              <div class="loge-btn" data-room="B1" onclick="toggleRoom(this)">B1</div>
-              <div class="loge-btn" data-room="B2" onclick="toggleRoom(this)">B2</div>
-              <div class="loge-btn" data-room="B3" onclick="toggleRoom(this)">B3</div>
-              <div class="loge-btn" data-room="B4" onclick="toggleRoom(this)">B4</div>
-              <div class="loge-btn" data-room="B5" onclick="toggleRoom(this)">B5</div>
-            </div>
-          </div>
-          <div class="logement-group">
-            <div class="logement-group-title">── Paillote (57 000 Ar) ──</div>
-            <div class="logement-grid">
-              <div class="loge-btn" data-room="P1" onclick="toggleRoom(this)">P1</div>
-              <div class="loge-btn" data-room="P2" onclick="toggleRoom(this)">P2</div>
-              <div class="loge-btn" data-room="P3" onclick="toggleRoom(this)">P3</div>
-              <div class="loge-btn" data-room="P4" onclick="toggleRoom(this)">P4</div>
-              <div class="loge-btn" data-room="P5" onclick="toggleRoom(this)">P5</div>
-            </div>
-          </div>
-          <div class="logement-group">
-            <div class="logement-group-title">── Triple (112 000 Ar) ──</div>
-            <div class="logement-grid" style="grid-template-columns:repeat(3,1fr);">
-              <div class="loge-btn" data-room="C1" onclick="toggleRoom(this)">C1</div>
-              <div class="loge-btn" data-room="C2" onclick="toggleRoom(this)">C2</div>
-              <div class="loge-btn" data-room="C3" onclick="toggleRoom(this)">C3</div>
-            </div>
-          </div>
-          <div class="logement-group">
-            <div class="logement-group-title">── Familial (F2=4p·132 000 Ar | F1=6p·152 000 Ar) ──</div>
-            <div class="logement-grid" style="grid-template-columns:repeat(2,1fr);">
-              <div class="loge-btn" data-room="F2" onclick="toggleRoom(this)">F2 (4p)</div>
-              <div class="loge-btn" data-room="F1" onclick="toggleRoom(this)">F1 (6p)</div>
-            </div>
+        <div class="logement-group">
+          <div class="logement-group-title">── Spacieux (142 000 Ar) ──</div>
+          <div class="logement-grid">
+            <div class="loge-btn" data-room="L1" onclick="toggleRoom(this)">L1</div>
+            <div class="loge-btn" data-room="L2" onclick="toggleRoom(this)">L2</div>
+            <div class="loge-btn" data-room="L3" onclick="toggleRoom(this)">L3</div>
+            <div class="loge-btn" data-room="L4" onclick="toggleRoom(this)">L4</div>
+            <div class="loge-btn" data-room="L5" onclick="toggleRoom(this)">L5</div>
           </div>
         </div>
-
+        <div class="logement-group">
+          <div class="logement-group-title">── Classique (92 000 Ar) ──</div>
+          <div class="logement-grid">
+            <div class="loge-btn" data-room="B1" onclick="toggleRoom(this)">B1</div>
+            <div class="loge-btn" data-room="B2" onclick="toggleRoom(this)">B2</div>
+            <div class="loge-btn" data-room="B3" onclick="toggleRoom(this)">B3</div>
+            <div class="loge-btn" data-room="B4" onclick="toggleRoom(this)">B4</div>
+            <div class="loge-btn" data-room="B5" onclick="toggleRoom(this)">B5</div>
+          </div>
+        </div>
+        <div class="logement-group">
+          <div class="logement-group-title">── Paillote (57 000 Ar) ──</div>
+          <div class="logement-grid">
+            <div class="loge-btn" data-room="P1" onclick="toggleRoom(this)">P1</div>
+            <div class="loge-btn" data-room="P2" onclick="toggleRoom(this)">P2</div>
+            <div class="loge-btn" data-room="P3" onclick="toggleRoom(this)">P3</div>
+            <div class="loge-btn" data-room="P4" onclick="toggleRoom(this)">P4</div>
+            <div class="loge-btn" data-room="P5" onclick="toggleRoom(this)">P5</div>
+          </div>
+        </div>
+        <div class="logement-group">
+          <div class="logement-group-title">── Triple (112 000 Ar) ──</div>
+          <div class="logement-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="loge-btn" data-room="C1" onclick="toggleRoom(this)">C1</div>
+            <div class="loge-btn" data-room="C2" onclick="toggleRoom(this)">C2</div>
+            <div class="loge-btn" data-room="C3" onclick="toggleRoom(this)">C3</div>
+          </div>
+        </div>
+        <div class="logement-group">
+          <div class="logement-group-title">── Familial (F2=4p·132 000 Ar | F1=6p·152 000 Ar) ──</div>
+          <div class="logement-grid" style="grid-template-columns:repeat(2,1fr);">
+            <div class="loge-btn" data-room="F2" onclick="toggleRoom(this)">F2 (4p)</div>
+            <div class="loge-btn" data-room="F1" onclick="toggleRoom(this)">F1 (6p)</div>
+          </div>
+        </div>
         <div class="selected-logements" id="selectedDisplay">Aucun logement sélectionné</div>
       </div>
     </div>
@@ -283,6 +257,7 @@ textarea { resize: vertical; min-height: 56px; }
       </button>
       <button class="btn" style="background:#e0e0e0;color:#333;" onclick="resetForm()">↺ Effacer</button>
     </div>
+
   </div>
 </div>
 
@@ -300,59 +275,66 @@ const SHEET_ID  = '1Ra0YTuxRcW4ONcreowPMWAW1L0qAJEpo-DmwFPz0UBI';
 const CLIENT_ID = '665037505291-d5ukeotro0bktadudonmajsrgpj3kltv.apps.googleusercontent.com';
 
 const FEUILLE_RESERVATIONS = 'Réservations';
-const FEUILLES_MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-const ROOM_ROWS = {L1:4,L2:5,L3:6,L4:7,L5:8,B1:10,B2:11,B3:12,B4:13,B5:14,P1:16,P2:17,P3:18,P4:19,P5:20,C1:22,C2:23,C3:24,F2:26,F1:27};
+const FEUILLES_MOIS = [
+  'Janvier','Février','Mars','Avril',
+  'Mai','Juin','Juillet','Août',
+  'Septembre','Octobre','Novembre','Décembre'
+];
+
+const ROOM_ROWS = {
+  L1:4, L2:5, L3:6, L4:7, L5:8,
+  B1:10, B2:11, B3:12, B4:13, B5:14,
+  P1:16, P2:17, P3:18, P4:19, P5:20,
+  C1:22, C2:23, C3:24,
+  F2:26, F1:27
+};
 
 const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 
 // ══════════════════════════════════════════════════
-// ÉTAT
-// ══════════════════════════════════════════════════
-let accessToken   = null;
-let selectedRooms = new Set();
-// Liste des réservations chargées depuis la feuille : [{rooms:['L1','B2'], arr: Date, dep: Date}]
-let reservationsExistantes = [];
-
-// ══════════════════════════════════════════════════
 // AUTH
 // ══════════════════════════════════════════════════
+let accessToken = null;
+
 function signIn() {
   const client = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.profile',
     callback: async (resp) => {
-      if (resp.error) { showToast('❌ Erreur : ' + resp.error, true); return; }
+      if (resp.error) { showToast('❌ Erreur connexion : ' + resp.error, true); return; }
       accessToken = resp.access_token;
       try {
-        const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', { headers: { Authorization: 'Bearer ' + accessToken } });
+        const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+          headers: { Authorization: 'Bearer ' + accessToken }
+        });
         const ui = await u.json();
         document.getElementById('topbarRight').innerHTML = `
-          <div class="user-badge">${ui.picture ? `<img src="${ui.picture}">` : ''}${ui.name||''}</div>
+          <div class="user-badge">
+            ${ui.picture ? `<img src="${ui.picture}">` : ''}
+            ${ui.name || ''}
+          </div>
           <button class="btn btn-light" onclick="signOut()">🔓 Déconnexion</button>`;
       } catch(e) {}
 
-      // Charger les réservations existantes
-      await chargerReservations();
-
-      document.getElementById('statusDisplay').textContent = '✓ Connecté — planning_chez_alice_2026_NEUF';
+      document.getElementById('statusDisplay').textContent = '✓ Connecté — ' + FEUILLE_RESERVATIONS;
       document.getElementById('screen-login').style.display = 'none';
       document.getElementById('screen-form').style.display = 'block';
-      const today = new Date(), fmt = d => d.toISOString().split('T')[0];
+
+      const today = new Date();
+      const fmt = d => d.toISOString().split('T')[0];
       document.getElementById('dateArrivee').value = fmt(today);
-      const tom = new Date(today); tom.setDate(today.getDate()+1);
+      const tom = new Date(today); tom.setDate(today.getDate() + 1);
       document.getElementById('dateDepart').value = fmt(tom);
       updateSummary();
-      updateDisponibilite();
-      showToast('✓ Connecté — ' + reservationsExistantes.length + ' réservations chargées');
+      showToast('✓ Connecté à Google Sheets !');
     }
   });
   client.requestAccessToken();
 }
 
 function signOut() {
-  if (accessToken) google.accounts.oauth2.revoke(accessToken, ()=>{});
+  if (accessToken) google.accounts.oauth2.revoke(accessToken, () => {});
   accessToken = null;
-  reservationsExistantes = [];
   document.getElementById('screen-login').style.display = 'flex';
   document.getElementById('screen-form').style.display = 'none';
   document.getElementById('topbarRight').innerHTML = '';
@@ -360,163 +342,78 @@ function signOut() {
 }
 
 // ══════════════════════════════════════════════════
-// CHARGEMENT DES RÉSERVATIONS EXISTANTES
-// ══════════════════════════════════════════════════
-async function chargerReservations() {
-  try {
-    // Colonnes : A=N°, B=DateSaisie, C=Nom, D=Logements, E=Arrivée, F=Départ, J=Statut
-    const data = await apiGet(`${FEUILLE_RESERVATIONS}!A:J`);
-    const rows = data.values || [];
-    reservationsExistantes = [];
-
-    for (let i = 3; i < rows.length; i++) { // à partir de la ligne 4 (index 3)
-      const row = rows[i];
-      if (!row || !row[2] || !row[3] || !row[4] || !row[5]) continue; // skip lignes vides
-      const statut = (row[9] || '').toUpperCase();
-      if (statut === 'ANNULÉ') continue; // ignorer les annulées
-
-      // Logements : format "L1-B2" ou "L1" ou "B1-B2-B3"
-      const roomsStr = String(row[3]).trim();
-      const rooms = roomsStr.split(/[-,\s]+/).map(r => r.trim()).filter(r => r);
-
-      // Dates : format jj/mm/aaaa
-      const parseDate = s => {
-        if (!s) return null;
-        const p = String(s).split('/');
-        if (p.length === 3) return new Date(parseInt(p[2]), parseInt(p[1])-1, parseInt(p[0]));
-        return new Date(s);
-      };
-      const arr = parseDate(row[4]);
-      const dep = parseDate(row[5]);
-      if (!arr || !dep || isNaN(arr) || isNaN(dep)) continue;
-
-      reservationsExistantes.push({ rooms, arr, dep });
-    }
-    console.log('✅ Réservations chargées :', reservationsExistantes.length);
-  } catch(e) {
-    console.warn('Chargement réservations échoué :', e);
-  }
-}
-
-// ══════════════════════════════════════════════════
-// VÉRIFIER DISPONIBILITÉ ET BLOQUER LES CHAMBRES
-// ══════════════════════════════════════════════════
-function updateDisponibilite() {
-  const arrVal = document.getElementById('dateArrivee').value;
-  const depVal = document.getElementById('dateDepart').value;
-  const info   = document.getElementById('dispoStatus');
-
-  // Réinitialiser tous les boutons
-  document.querySelectorAll('.loge-btn').forEach(btn => {
-    btn.classList.remove('blocked');
-    // Si la chambre était sélectionnée et devient bloquée, la désélectionner
-  });
-
-  if (!arrVal || !depVal) { info.textContent = ''; return; }
-
-  const arrDate = new Date(arrVal);
-  const depDate = new Date(depVal);
-  if (arrDate >= depDate) { info.textContent = ''; return; }
-
-  // Trouver les chambres occupées sur ces dates
-  const chambresOccupees = new Set();
-
-  reservationsExistantes.forEach(res => {
-    // Chevauchement : arrivée < depDate ET départ > arrDate
-    if (res.arr < depDate && res.dep > arrDate) {
-      res.rooms.forEach(r => chambresOccupees.add(r));
-    }
-  });
-
-  // Bloquer les boutons occupés
-  let nbBloquees = 0;
-  document.querySelectorAll('.loge-btn').forEach(btn => {
-    const room = btn.dataset.room;
-    if (chambresOccupees.has(room)) {
-      btn.classList.add('blocked');
-      nbBloquees++;
-      // Si cette chambre était sélectionnée, la retirer
-      if (selectedRooms.has(room)) {
-        selectedRooms.delete(room);
-        btn.classList.remove('selected');
-      }
-    }
-  });
-
-  updateSelectedDisplay();
-
-  if (nbBloquees > 0) {
-    info.textContent = `${nbBloquees} logement${nbBloquees>1?'s':''} déjà réservé${nbBloquees>1?'s':''}`;
-    info.style.color = '#c0392b';
-  } else {
-    info.textContent = 'Tous les logements sont disponibles ✓';
-    info.style.color = '#1a7a3c';
-  }
-}
-
-function onDateChange() {
-  updateDisponibilite();
-  updateSummary();
-}
-
-// ══════════════════════════════════════════════════
-// API SHEETS
+// API SHEETS — toutes les URLs encodées correctement
 // ══════════════════════════════════════════════════
 function rangeUrl(range) {
-  const bang = range.indexOf('!');
-  if (bang !== -1) {
-    return `${API}/values/${encodeURIComponent(range.substring(0,bang))}!${range.substring(bang+1)}`;
+  // Encode le nom de feuille séparément du reste (ex: A1:L50)
+  const parts = range.split('!');
+  if (parts.length === 2) {
+    return `${API}/values/${encodeURIComponent(parts[0])}!${parts[1]}`;
   }
   return `${API}/values/${encodeURIComponent(range)}`;
 }
 
 async function apiGet(range) {
-  const r = await fetch(rangeUrl(range), { headers: { Authorization: 'Bearer ' + accessToken } });
+  const r = await fetch(rangeUrl(range), {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  });
   if (!r.ok) {
-    const e = await r.json().catch(()=>({}));
-    throw new Error(`Lecture échouée (${r.status}) : ${e?.error?.message || range}`);
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Lecture échouée — "${range}" : ${e?.error?.message || r.status}`);
   }
   return r.json();
 }
 
 async function apiAppend(range, values) {
-  const url = rangeUrl(range) + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
+  const url = rangeUrl(range) + '?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
   const r = await fetch(url, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
     body: JSON.stringify({ values })
   });
   if (!r.ok) {
-    const e = await r.json().catch(()=>({}));
-    throw new Error(`Écriture échouée (${r.status}) : ${e?.error?.message || ''}`);
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Écriture échouée : ${e?.error?.message || r.status}`);
   }
   return r.json();
 }
 
 async function apiBatchValues(data) {
+  // Pour batchUpdate les ranges sont dans le body — on encode les noms de feuilles dans les ranges
+  const encodedData = data.map(d => ({
+    ...d,
+    range: d.range // Sheets API accepte les noms natifs dans le body JSON
+  }));
   const r = await fetch(`${API}/values:batchUpdate`, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ valueInputOption: 'USER_ENTERED', data })
+    body: JSON.stringify({ valueInputOption: 'USER_ENTERED', data: encodedData })
   });
   if (!r.ok) {
-    const e = await r.json().catch(()=>({}));
-    throw new Error(`Planning échoué (${r.status}) : ${e?.error?.message || ''}`);
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Planning valeurs échoué : ${e?.error?.message || r.status}`);
   }
   return r.json();
 }
 
 async function getSheetMeta() {
-  const r = await fetch(`${API}?fields=sheets.properties`, { headers: { Authorization: 'Bearer ' + accessToken } });
-  if (!r.ok) throw new Error('getSheetMeta : ' + r.status);
+  const r = await fetch(`${API}?fields=sheets.properties`, {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  });
   const d = await r.json();
   const map = {};
-  (d.sheets||[]).forEach(s => { map[s.properties.title] = s.properties.sheetId; });
+  (d.sheets || []).forEach(s => { map[s.properties.title] = s.properties.sheetId; });
   return map;
 }
 
 function colLetter(n) {
-  let s=''; while(n>0){const r=(n-1)%26; s=String.fromCharCode(65+r)+s; n=Math.floor((n-1)/26);} return s;
+  let s = '';
+  while (n > 0) {
+    const r = (n - 1) % 26;
+    s = String.fromCharCode(65 + r) + s;
+    n = Math.floor((n - 1) / 26);
+  }
+  return s;
 }
 
 // ══════════════════════════════════════════════════
@@ -532,7 +429,7 @@ async function addReservation() {
   if (!arr || !dep)             { showToast('⚠️ Saisis les dates', true); return; }
   if (getNuits() <= 0)          { showToast('⚠️ Date de départ invalide', true); return; }
   if (selectedRooms.size === 0) { showToast('⚠️ Sélectionne un logement', true); return; }
-  if (!accessToken)             { showToast('❌ Non connecté', true); return; }
+  if (!accessToken)             { showToast('❌ Non connecté à Google', true); return; }
 
   const nuits     = getNuits();
   const pd        = document.getElementById('petitDej').value;
@@ -543,28 +440,23 @@ async function addReservation() {
   const fmtFR     = v => new Date(v).toLocaleDateString('fr-FR');
   const today     = new Date();
 
-  showLoader('Recherche de la prochaine ligne...');
+  showLoader('Enregistrement dans Réservations...');
   try {
-    // ── 1. Trouver la prochaine ligne libre ──
-    // On lit la colonne C (Nom client) — pas la colonne A ni J
-    // car la colonne J a des listes déroulantes sur toutes les lignes
-    const colC = await apiGet(`${FEUILLE_RESERVATIONS}!C:C`);
-    const rows  = colC.values || [];
 
-    // Trouver le dernier index rempli à partir de la ligne 4 (index 3)
-    let lastFilledIndex = 2; // ligne 3 = en-têtes (index 2)
+    // ── 1. Trouver le prochain N° ──
+    const colA = await apiGet(`${FEUILLE_RESERVATIONS}!A:A`);
+    const rows  = colA.values || [];
+    // Compter les lignes de données réelles (après ligne 3 d'en-tête)
+    let lastDataRow = 3;
     for (let i = 3; i < rows.length; i++) {
       if (rows[i] && rows[i][0] && String(rows[i][0]).trim() !== '') {
-        lastFilledIndex = i;
+        lastDataRow = i + 1; // +1 car 1-based
       }
     }
-    const nextRow = lastFilledIndex + 2; // index → ligne (i+1), puis ligne suivante (+1)
+    const nextRow = lastDataRow + 1;
     const newNum  = nextRow - 3;
 
-    console.log(`📝 Dernière ligne data (index): ${lastFilledIndex} → ligne ${lastFilledIndex+1}, prochaine ligne: ${nextRow}, N°${newNum}`);
-
     // ── 2. Écrire dans Réservations ──
-    updateLoader('Enregistrement dans Réservations...');
     await apiAppend(`${FEUILLE_RESERVATIONS}!A${nextRow}:L${nextRow}`, [[
       newNum,
       today.toLocaleDateString('fr-FR'),
@@ -582,7 +474,7 @@ async function addReservation() {
 
     // ── 3. Marquer le planning mensuel ──
     updateLoader('Mise à jour du planning mensuel...');
-    const shortName = nom.length > 16 ? nom.substring(0,16) : nom;
+    const shortName = nom.length > 16 ? nom.substring(0, 16) : nom;
     const arrDate   = new Date(arr);
     const depDate   = new Date(dep);
     const sheetMeta = await getSheetMeta();
@@ -596,28 +488,46 @@ async function addReservation() {
       while (d < depDate) {
         const moisNom = FEUILLES_MOIS[d.getMonth()];
         const jour    = d.getDate();
-        const colIdx0 = jour + 1; // 0-based : col C=index2=jour1, col pour jourN = index(N+1)
-        const colName = colLetter(colIdx0 + 1);
-        valueData.push({ range: `${moisNom}!${colName}${roomRow}`, values: [[shortName]] });
+        const colIdx  = jour + 1; // colonne C (index 2, 0-based) = jour 1, donc jour N = index jour+1
+        const colName = colLetter(colIdx + 1); // +1 car colLetter est 1-based
+        valueData.push({
+          range: `${moisNom}!${colName}${roomRow}`,
+          values: [[shortName]]
+        });
         const sheetId = sheetMeta[moisNom];
         if (sheetId !== undefined) {
           fmtReqs.push({
             repeatCell: {
-              range: { sheetId, startRowIndex:roomRow-1, endRowIndex:roomRow, startColumnIndex:colIdx0, endColumnIndex:colIdx0+1 },
-              cell: { userEnteredFormat: {
-                backgroundColor: { red:0.42, green:0.10, blue:0.16 },
-                textFormat: { foregroundColor:{red:1,green:1,blue:1}, bold:true, fontSize:9 },
-                horizontalAlignment:'CENTER', verticalAlignment:'MIDDLE', wrapStrategy:'WRAP'
-              }},
+              range: {
+                sheetId,
+                startRowIndex: roomRow - 1,
+                endRowIndex: roomRow,
+                startColumnIndex: colIdx,
+                endColumnIndex: colIdx + 1
+              },
+              cell: {
+                userEnteredFormat: {
+                  backgroundColor: { red: 0.42, green: 0.10, blue: 0.16 },
+                  textFormat: {
+                    foregroundColor: { red: 1, green: 1, blue: 1 },
+                    bold: true,
+                    fontSize: 9
+                  },
+                  horizontalAlignment: 'CENTER',
+                  verticalAlignment: 'MIDDLE',
+                  wrapStrategy: 'WRAP'
+                }
+              },
               fields: 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)'
             }
           });
         }
-        d.setDate(d.getDate()+1);
+        d.setDate(d.getDate() + 1);
       }
     });
 
     if (valueData.length > 0) await apiBatchValues(valueData);
+
     if (fmtReqs.length > 0) {
       await fetch(`${API}:batchUpdate`, {
         method: 'POST',
@@ -626,18 +536,9 @@ async function addReservation() {
       });
     }
 
-    // Ajouter la nouvelle réservation dans la liste locale pour mise à jour immédiate
-    const parseDate = s => { const p=s.split('-'); return new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2])); };
-    reservationsExistantes.push({
-      rooms: [...selectedRooms],
-      arr: parseDate(arr),
-      dep: parseDate(dep)
-    });
-
     hideLoader();
-    showToast(`✅ Réservation N°${newNum} enregistrée — ${nom} · ${rooms} · ${nuits} nuit${nuits>1?'s':''}`);
+    showToast(`✅ Réservation N°${newNum} enregistrée — ${nom} · ${rooms} · ${nuits} nuit${nuits > 1 ? 's' : ''}`);
     resetForm();
-    updateDisponibilite();
 
   } catch(err) {
     hideLoader();
@@ -649,28 +550,34 @@ async function addReservation() {
 // ══════════════════════════════════════════════════
 // FORMULAIRE
 // ══════════════════════════════════════════════════
-function toggleRoom(btn) {
-  if (btn.classList.contains('blocked')) return; // ignorer si bloqué
-  const room = btn.dataset.room;
-  if (selectedRooms.has(room)) { selectedRooms.delete(room); btn.classList.remove('selected'); }
-  else { selectedRooms.add(room); btn.classList.add('selected'); }
-  updateSelectedDisplay();
-  updateSummary();
-}
+let selectedRooms = new Set();
 
-function updateSelectedDisplay() {
+function toggleRoom(btn) {
+  const room = btn.dataset.room;
+  if (selectedRooms.has(room)) {
+    selectedRooms.delete(room);
+    btn.classList.remove('selected');
+  } else {
+    selectedRooms.add(room);
+    btn.classList.add('selected');
+  }
   document.getElementById('selectedDisplay').textContent =
-    selectedRooms.size === 0 ? 'Aucun logement sélectionné' : '✓ Sélectionnés : ' + [...selectedRooms].join(' · ');
+    selectedRooms.size === 0
+      ? 'Aucun logement sélectionné'
+      : '✓ Sélectionnés : ' + [...selectedRooms].join(' · ');
+  updateSummary();
 }
 
 function selectStatus(btn) {
   document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+
 function getStatus() {
   const a = document.querySelector('.status-btn.active');
   return a ? a.dataset.val : 'CONFIRMÉ';
 }
+
 function getNuits() {
   const a = document.getElementById('dateArrivee').value;
   const d = document.getElementById('dateDepart').value;
@@ -678,6 +585,7 @@ function getNuits() {
   const diff = (new Date(d) - new Date(a)) / 86400000;
   return diff > 0 ? diff : 0;
 }
+
 function updateSummary() {
   const nom   = document.getElementById('nomClient').value.trim();
   const nuits = getNuits();
@@ -686,39 +594,49 @@ function updateSummary() {
   const arr   = document.getElementById('dateArrivee').value;
   const dep   = document.getElementById('dateDepart').value;
   const box   = document.getElementById('summaryBox');
-  if (!nom && selectedRooms.size === 0) { box.style.display='none'; return; }
+  if (!nom && selectedRooms.size === 0) { box.style.display = 'none'; return; }
   box.style.display = 'block';
   const rooms   = [...selectedRooms].join(', ') || '—';
-  const fmtDate = v => { if(!v) return '—'; return new Date(v).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'}); };
+  const fmtDate = v => {
+    if (!v) return '—';
+    return new Date(v).toLocaleDateString('fr-FR', { weekday:'short', day:'numeric', month:'long' });
+  };
   document.getElementById('summaryContent').innerHTML =
-    `<strong>${nom||'—'}</strong> &nbsp;·&nbsp; ${rooms}<br>
+    `<strong>${nom || '—'}</strong> &nbsp;·&nbsp; ${rooms}<br>
      ${fmtDate(arr)} → ${fmtDate(dep)} &nbsp;·&nbsp;
-     <span class="summary-nuits">${nuits}</span> nuit${nuits>1?'s':''} &nbsp;·&nbsp; ${pers||'?'} pers.
-     ${pd ? '<br>🍳 '+pd : ''}`;
+     <span class="summary-nuits">${nuits}</span> nuit${nuits > 1 ? 's' : ''} &nbsp;·&nbsp; ${pers || '?'} pers.
+     ${pd ? '<br>🍳 ' + pd : ''}`;
 }
+
 function resetForm() {
-  ['nomClient','nbPersonnes','remarques'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('petitDej').value='';
-  document.getElementById('signature').value='UF';
-  document.querySelectorAll('.status-btn').forEach(b=>b.classList.remove('active'));
+  ['nomClient', 'nbPersonnes', 'remarques'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('petitDej').value = '';
+  document.getElementById('signature').value = 'UF';
+  document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('.status-btn[data-val="CONFIRMÉ"]').classList.add('active');
   selectedRooms.clear();
-  document.querySelectorAll('.loge-btn').forEach(b=>b.classList.remove('selected'));
-  updateSelectedDisplay();
-  document.getElementById('summaryBox').style.display='none';
-  const today=new Date(), fmt=d=>d.toISOString().split('T')[0];
-  document.getElementById('dateArrivee').value=fmt(today);
-  const tom=new Date(today); tom.setDate(today.getDate()+1);
-  document.getElementById('dateDepart').value=fmt(tom);
+  document.querySelectorAll('.loge-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('selectedDisplay').textContent = 'Aucun logement sélectionné';
+  document.getElementById('summaryBox').style.display = 'none';
+  const today = new Date();
+  const fmt = d => d.toISOString().split('T')[0];
+  document.getElementById('dateArrivee').value = fmt(today);
+  const tom = new Date(today); tom.setDate(today.getDate() + 1);
+  document.getElementById('dateDepart').value = fmt(tom);
 }
-function showLoader(msg){document.getElementById('loaderMsg').textContent=msg;document.getElementById('loader').classList.add('show');}
-function updateLoader(msg){document.getElementById('loaderMsg').textContent=msg;}
-function hideLoader(){document.getElementById('loader').classList.remove('show');}
-function showToast(msg,isError){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast'+(isError?' error':'')+' show';
-  setTimeout(()=>t.classList.remove('show'),4500);
+
+function showLoader(msg) {
+  document.getElementById('loaderMsg').textContent = msg;
+  document.getElementById('loader').classList.add('show');
+}
+function updateLoader(msg) { document.getElementById('loaderMsg').textContent = msg; }
+function hideLoader() { document.getElementById('loader').classList.remove('show'); }
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 4500);
 }
 </script>
 </body>
