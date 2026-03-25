@@ -25,13 +25,11 @@ body { font-family: Arial, sans-serif; background: #f4f0f0; color: #222; min-hei
 }
 .btn:hover { opacity: 0.88; }
 .btn:active { transform: scale(0.97); }
-.btn-white { background: white; color: #6B1A2A; }
 .btn-light { background: rgba(255,255,255,0.18); color: white; border: 1px solid rgba(255,255,255,0.4); }
 .btn-green { background: #1a7a3c; color: white; }
 
 .main { max-width: 820px; margin: 0 auto; padding: 20px 16px 40px; }
 
-/* LOGIN */
 #screen-login {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; min-height: 70vh; text-align: center; gap: 20px;
@@ -52,7 +50,6 @@ body { font-family: Arial, sans-serif; background: #f4f0f0; color: #222; min-hei
 }
 .btn-google:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-color: #aaa; }
 
-/* FORM */
 #screen-form { display: none; }
 .section-card { background: white; border-radius: 10px; border: 1px solid #e8d8da; margin-bottom: 16px; overflow: hidden; }
 .section-header { background: #6B1A2A; color: white; padding: 9px 16px; font-size: 13px; font-weight: bold; letter-spacing: 0.4px; }
@@ -75,7 +72,6 @@ textarea { resize: vertical; min-height: 56px; }
 .loge-btn { padding: 7px 4px; text-align: center; font-size: 13px; font-weight: bold; border: 1.5px solid #ddd; border-radius: 6px; cursor: pointer; background: white; color: #444; transition: all 0.15s; user-select: none; }
 .loge-btn:hover { border-color: #6B1A2A; color: #6B1A2A; }
 .loge-btn.selected { background: #6B1A2A; color: white; border-color: #6B1A2A; }
-
 .selected-logements { margin-top: 8px; font-size: 13px; color: #6B1A2A; font-weight: bold; min-height: 20px; }
 
 .summary-box { background: #fdf5f6; border: 1.5px solid #d4a0a8; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.8; }
@@ -102,10 +98,6 @@ textarea { resize: vertical; min-height: 56px; }
 
 .user-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; font-size: 12px; }
 .user-badge img { width: 22px; height: 22px; border-radius: 50%; }
-
-.config-box { background: #fff8e8; border: 1.5px solid #f5c842; border-radius: 10px; padding: 20px; margin: 20px 0; font-size: 13px; line-height: 1.8; }
-.config-box h3 { color: #856404; margin-bottom: 10px; }
-.config-box code { background: #f5f5f5; padding: 3px 7px; border-radius: 4px; font-size: 12px; }
 
 @media (max-width: 560px) {
   .form-grid { grid-template-columns: 1fr; }
@@ -143,19 +135,6 @@ textarea { resize: vertical; min-height: 56px; }
         Se connecter avec Google
       </button>
       <p style="margin-top:14px;font-size:11px;color:#ccc;">Vos données restent dans votre Drive. Rien n'est envoyé ailleurs.</p>
-    </div>
-
-    <div class="config-box" style="max-width:460px;width:100%;">
-      <h3>⚙️ Étape unique de configuration</h3>
-      Avant la première utilisation, il faut renseigner votre <strong>Client ID Google</strong> dans le fichier HTML.<br><br>
-      <strong>Comment faire :</strong><br>
-      1. Ouvrez <a href="https://console.cloud.google.com" target="_blank" style="color:#6B1A2A;">console.cloud.google.com</a><br>
-      2. Créez un projet → <em>API & Services → Identifiants</em><br>
-      3. Créez un <strong>ID client OAuth 2.0</strong> (Application Web)<br>
-      4. Dans "Origines JS autorisées" : ajoutez l'URL où vous hébergez ce fichier (ou <code>http://localhost</code> pour tester)<br>
-      5. Activez l'<strong>API Google Sheets</strong> dans votre projet<br>
-      6. Copiez votre Client ID et remplacez dans ce fichier :<br>
-      <code>const CLIENT_ID = 'VOTRE_CLIENT_ID.apps.googleusercontent.com';</code>
     </div>
   </div>
 
@@ -290,84 +269,61 @@ textarea { resize: vertical; min-height: 56px; }
 
 <script>
 // ══════════════════════════════════════════════════
-// ⚙️ CONFIG — À remplir une seule fois
+// CONFIG
 // ══════════════════════════════════════════════════
-const SHEET_ID   = '1Ra0YTuxRcW4ONcreowPMWAW1L0qAJEpo-DmwFPz0UBI';
-const CLIENT_ID  = '665037505291-d5ukeotro0bktadudonmajsrgpj3kltv.apps.googleusercontent.com';  // ← Collez votre Client ID Google ici
+const SHEET_ID  = '1Ra0YTuxRcW4ONcreowPMWAW1L0qAJEpo-DmwFPz0UBI';
+const CLIENT_ID = '665037505291-d5ukeotro0bktadudonmajsrgpj3kltv.apps.googleusercontent.com';
 
-let FEUILLE_RESERVATIONS = 'Réservations';
-let FEUILLES_MOIS = [
+const FEUILLE_RESERVATIONS = 'Réservations';
+const FEUILLES_MOIS = [
   'Janvier','Février','Mars','Avril',
   'Mai','Juin','Juillet','Août',
   'Septembre','Octobre','Novembre','Décembre'
 ];
 
-// Ligne de chaque chambre dans les feuilles mensuelles
-const ROOM_ROWS = {L1:4,L2:5,L3:6,L4:7,L5:8,B1:10,B2:11,B3:12,B4:13,B5:14,P1:16,P2:17,P3:18,P4:19,P5:20,C1:22,C2:23,C3:24,F2:26,F1:27};
+const ROOM_ROWS = {
+  L1:4, L2:5, L3:6, L4:7, L5:8,
+  B1:10, B2:11, B3:12, B4:13, B5:14,
+  P1:16, P2:17, P3:18, P4:19, P5:20,
+  C1:22, C2:23, C3:24,
+  F2:26, F1:27
+};
+
+const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 
 // ══════════════════════════════════════════════════
-// AUTH GOOGLE
+// AUTH
 // ══════════════════════════════════════════════════
 let accessToken = null;
 
 function signIn() {
-  if (!CLIENT_ID) {
-    showToast('⚙️ Renseignez votre Client ID Google dans le fichier HTML', true);
-    return;
-  }
   const client = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.profile',
     callback: async (resp) => {
       if (resp.error) { showToast('❌ Erreur connexion : ' + resp.error, true); return; }
       accessToken = resp.access_token;
-      let nom = '';
       try {
-        const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', { headers: { Authorization: 'Bearer ' + accessToken } });
+        const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+          headers: { Authorization: 'Bearer ' + accessToken }
+        });
         const ui = await u.json();
-        nom = ui.name || '';
         document.getElementById('topbarRight').innerHTML = `
-          <div class="user-badge">${ui.picture ? `<img src="${ui.picture}">` : ''}${nom}</div>
+          <div class="user-badge">
+            ${ui.picture ? `<img src="${ui.picture}">` : ''}
+            ${ui.name || ''}
+          </div>
           <button class="btn btn-light" onclick="signOut()">🔓 Déconnexion</button>`;
       } catch(e) {}
-      // ── Détection automatique des noms de feuilles ──
-      try {
-        const meta = await getSheetMeta();
-        const sheetNames = Object.keys(meta);
-        console.log('📋 Feuilles détectées :', sheetNames);
 
-        // Trouver la feuille Réservations
-        const resSheet = sheetNames.find(n =>
-          n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes('reservation')
-        );
-        if (resSheet) {
-          FEUILLE_RESERVATIONS = resSheet;
-          console.log('✅ Feuille réservations :', resSheet);
-        } else {
-          console.warn('⚠️ Feuille réservations non trouvée, noms disponibles :', sheetNames);
-        }
-
-        // Trouver les feuilles mensuelles — matching plus large
-        const moisNorm = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
-        const detected = sheetNames.filter(n => {
-          const low = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
-          return moisNorm.some(m => low === m || low.includes(m));
-        });
-        console.log('📅 Feuilles mois détectées :', detected);
-        if (detected.length >= 3) FEUILLES_MOIS = detected;
-
-        document.getElementById('statusDisplay').textContent =
-          `✓ Connecté — ${resSheet || '⚠️ feuille?'} · ${detected.length} mois détectés`;
-      } catch(e) {
-        console.warn('Détection feuilles échouée :', e);
-        document.getElementById('statusDisplay').textContent = '✓ Connecté (vérifier noms feuilles)';
-      }
-
+      document.getElementById('statusDisplay').textContent = '✓ Connecté — ' + FEUILLE_RESERVATIONS;
       document.getElementById('screen-login').style.display = 'none';
       document.getElementById('screen-form').style.display = 'block';
-      const today = new Date(), fmt = d => d.toISOString().split('T')[0];
+
+      const today = new Date();
+      const fmt = d => d.toISOString().split('T')[0];
       document.getElementById('dateArrivee').value = fmt(today);
-      const tom = new Date(today); tom.setDate(today.getDate()+1);
+      const tom = new Date(today); tom.setDate(today.getDate() + 1);
       document.getElementById('dateDepart').value = fmt(tom);
       updateSummary();
       showToast('✓ Connecté à Google Sheets !');
@@ -377,7 +333,7 @@ function signIn() {
 }
 
 function signOut() {
-  if (accessToken) google.accounts.oauth2.revoke(accessToken, ()=>{});
+  if (accessToken) google.accounts.oauth2.revoke(accessToken, () => {});
   accessToken = null;
   document.getElementById('screen-login').style.display = 'flex';
   document.getElementById('screen-form').style.display = 'none';
@@ -386,62 +342,78 @@ function signOut() {
 }
 
 // ══════════════════════════════════════════════════
-// SHEETS API
+// API SHEETS — toutes les URLs encodées correctement
 // ══════════════════════════════════════════════════
-const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
+function rangeUrl(range) {
+  // Encode le nom de feuille séparément du reste (ex: A1:L50)
+  const parts = range.split('!');
+  if (parts.length === 2) {
+    return `${API}/values/${encodeURIComponent(parts[0])}!${parts[1]}`;
+  }
+  return `${API}/values/${encodeURIComponent(range)}`;
+}
 
 async function apiGet(range) {
-  // Ne pas encoder le range — Google Sheets API accepte le range brut
-  const url = `${API}/values/${range.replace(/#/g,'%23')}`;
-  const r = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
+  const r = await fetch(rangeUrl(range), {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  });
   if (!r.ok) {
-    const errBody = await r.json().catch(() => ({}));
-    const msg = errBody?.error?.message || r.status;
-    throw new Error(`Lecture échouée (${r.status}) — "${range}" : ${msg}`);
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Lecture échouée — "${range}" : ${e?.error?.message || r.status}`);
   }
   return r.json();
 }
 
 async function apiAppend(range, values) {
-  const url = `${API}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+  const url = rangeUrl(range) + '?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
   const r = await fetch(url, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
     body: JSON.stringify({ values })
   });
-  if (!r.ok) { const e = await r.json(); throw new Error('Écriture échouée : ' + JSON.stringify(e.error?.message)); }
+  if (!r.ok) {
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Écriture échouée : ${e?.error?.message || r.status}`);
+  }
   return r.json();
 }
 
 async function apiBatchValues(data) {
+  // Pour batchUpdate les ranges sont dans le body — on encode les noms de feuilles dans les ranges
+  const encodedData = data.map(d => ({
+    ...d,
+    range: d.range // Sheets API accepte les noms natifs dans le body JSON
+  }));
   const r = await fetch(`${API}/values:batchUpdate`, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ valueInputOption: 'USER_ENTERED', data })
+    body: JSON.stringify({ valueInputOption: 'USER_ENTERED', data: encodedData })
   });
-  if (!r.ok) { const e = await r.json(); throw new Error('Planning échoué : ' + JSON.stringify(e.error?.message)); }
-  return r.json();
-}
-
-async function apiBatchFormat(requests) {
-  const r = await fetch(`${SHEET_ID.replace(/.*/, `${API}:batchUpdate`)}`, {
-    method: 'POST',
-    headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ requests })
-  });
+  if (!r.ok) {
+    const e = await r.json().catch(() => ({}));
+    throw new Error(`Planning valeurs échoué : ${e?.error?.message || r.status}`);
+  }
   return r.json();
 }
 
 async function getSheetMeta() {
-  const r = await fetch(`${API}?fields=sheets.properties`, { headers: { Authorization: 'Bearer ' + accessToken } });
+  const r = await fetch(`${API}?fields=sheets.properties`, {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  });
   const d = await r.json();
   const map = {};
-  (d.sheets||[]).forEach(s => { map[s.properties.title] = s.properties.sheetId; });
+  (d.sheets || []).forEach(s => { map[s.properties.title] = s.properties.sheetId; });
   return map;
 }
 
-function colLetter(n) { // 1=A, 2=B...
-  let s=''; while(n>0){const r=(n-1)%26; s=String.fromCharCode(65+r)+s; n=Math.floor((n-1)/26);} return s;
+function colLetter(n) {
+  let s = '';
+  while (n > 0) {
+    const r = (n - 1) % 26;
+    s = String.fromCharCode(65 + r) + s;
+    n = Math.floor((n - 1) / 26);
+  }
+  return s;
 }
 
 // ══════════════════════════════════════════════════
@@ -453,11 +425,11 @@ async function addReservation() {
   const dep  = document.getElementById('dateDepart').value;
   const pers = document.getElementById('nbPersonnes').value;
 
-  if (!nom)               { showToast('⚠️ Saisis le nom du client', true); return; }
-  if (!arr || !dep)       { showToast('⚠️ Saisis les dates', true); return; }
-  if (getNuits() <= 0)    { showToast('⚠️ Date de départ invalide', true); return; }
+  if (!nom)                     { showToast('⚠️ Saisis le nom du client', true); return; }
+  if (!arr || !dep)             { showToast('⚠️ Saisis les dates', true); return; }
+  if (getNuits() <= 0)          { showToast('⚠️ Date de départ invalide', true); return; }
   if (selectedRooms.size === 0) { showToast('⚠️ Sélectionne un logement', true); return; }
-  if (!accessToken)       { showToast('❌ Non connecté à Google', true); return; }
+  if (!accessToken)             { showToast('❌ Non connecté à Google', true); return; }
 
   const nuits     = getNuits();
   const pd        = document.getElementById('petitDej').value;
@@ -468,19 +440,23 @@ async function addReservation() {
   const fmtFR     = v => new Date(v).toLocaleDateString('fr-FR');
   const today     = new Date();
 
-  showLoader('Recherche de la prochaine ligne...');
+  showLoader('Enregistrement dans Réservations...');
   try {
-  // ── 1. Trouver prochaine ligne libre ──
-const colC = await apiGet(`${FEUILLE_RESERVATIONS}!C:C`);
-const rows  = colC.values || [];
-let nextRow = 4;
-for (let i = 3; i < rows.length; i++) {
-  if (!rows[i] || !rows[i][0] || !rows[i][0].trim()) { nextRow = i + 1; break; }
-  nextRow = i + 2;
-}
-const newNum = nextRow - 3;
+
+    // ── 1. Trouver le prochain N° ──
+    const colA = await apiGet(`${FEUILLE_RESERVATIONS}!A:A`);
+    const rows  = colA.values || [];
+    // Compter les lignes de données réelles (après ligne 3 d'en-tête)
+    let lastDataRow = 3;
+    for (let i = 3; i < rows.length; i++) {
+      if (rows[i] && rows[i][0] && String(rows[i][0]).trim() !== '') {
+        lastDataRow = i + 1; // +1 car 1-based
+      }
+    }
+    const nextRow = lastDataRow + 1;
+    const newNum  = nextRow - 3;
+
     // ── 2. Écrire dans Réservations ──
-    updateLoader('Enregistrement de la réservation...');
     await apiAppend(`${FEUILLE_RESERVATIONS}!A${nextRow}:L${nextRow}`, [[
       newNum,
       today.toLocaleDateString('fr-FR'),
@@ -497,8 +473,8 @@ const newNum = nextRow - 3;
     ]]);
 
     // ── 3. Marquer le planning mensuel ──
-    updateLoader('Mise à jour du planning...');
-    const shortName = nom.length > 16 ? nom.substring(0,16) : nom;
+    updateLoader('Mise à jour du planning mensuel...');
+    const shortName = nom.length > 16 ? nom.substring(0, 16) : nom;
     const arrDate   = new Date(arr);
     const depDate   = new Date(dep);
     const sheetMeta = await getSheetMeta();
@@ -510,27 +486,43 @@ const newNum = nextRow - 3;
       if (!roomRow) return;
       const d = new Date(arrDate);
       while (d < depDate) {
-        const mois      = FEUILLES_MOIS[d.getMonth()];
-        const jour      = d.getDate();
-        const colIdx    = jour + 1; // col C=jour1 → index 2, donc col = jour+1 (0-based = jour+1, 1-based = jour+2)
-        const cellRange = `${mois}!${colLetter(colIdx+1)}${roomRow}`;
-        valueData.push({ range: cellRange, values: [[shortName]] });
-
-        const sheetId = sheetMeta[mois];
+        const moisNom = FEUILLES_MOIS[d.getMonth()];
+        const jour    = d.getDate();
+        const colIdx  = jour + 1; // colonne C (index 2, 0-based) = jour 1, donc jour N = index jour+1
+        const colName = colLetter(colIdx + 1); // +1 car colLetter est 1-based
+        valueData.push({
+          range: `${moisNom}!${colName}${roomRow}`,
+          values: [[shortName]]
+        });
+        const sheetId = sheetMeta[moisNom];
         if (sheetId !== undefined) {
           fmtReqs.push({
             repeatCell: {
-              range: { sheetId, startRowIndex: roomRow-1, endRowIndex: roomRow, startColumnIndex: colIdx, endColumnIndex: colIdx+1 },
-              cell: { userEnteredFormat: {
-                backgroundColor: { red:0.42, green:0.10, blue:0.16 },
-                textFormat: { foregroundColor:{red:1,green:1,blue:1}, bold:true, fontSize:9 },
-                horizontalAlignment: 'CENTER', verticalAlignment: 'MIDDLE', wrapStrategy: 'WRAP'
-              }},
+              range: {
+                sheetId,
+                startRowIndex: roomRow - 1,
+                endRowIndex: roomRow,
+                startColumnIndex: colIdx,
+                endColumnIndex: colIdx + 1
+              },
+              cell: {
+                userEnteredFormat: {
+                  backgroundColor: { red: 0.42, green: 0.10, blue: 0.16 },
+                  textFormat: {
+                    foregroundColor: { red: 1, green: 1, blue: 1 },
+                    bold: true,
+                    fontSize: 9
+                  },
+                  horizontalAlignment: 'CENTER',
+                  verticalAlignment: 'MIDDLE',
+                  wrapStrategy: 'WRAP'
+                }
+              },
               fields: 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)'
             }
           });
         }
-        d.setDate(d.getDate()+1);
+        d.setDate(d.getDate() + 1);
       }
     });
 
@@ -545,7 +537,7 @@ const newNum = nextRow - 3;
     }
 
     hideLoader();
-    showToast(`✅ Réservation N°${newNum} enregistrée — ${nom} · ${rooms} · ${nuits} nuit${nuits>1?'s':''}`);
+    showToast(`✅ Réservation N°${newNum} enregistrée — ${nom} · ${rooms} · ${nuits} nuit${nuits > 1 ? 's' : ''}`);
     resetForm();
 
   } catch(err) {
@@ -562,10 +554,17 @@ let selectedRooms = new Set();
 
 function toggleRoom(btn) {
   const room = btn.dataset.room;
-  if (selectedRooms.has(room)) { selectedRooms.delete(room); btn.classList.remove('selected'); }
-  else { selectedRooms.add(room); btn.classList.add('selected'); }
+  if (selectedRooms.has(room)) {
+    selectedRooms.delete(room);
+    btn.classList.remove('selected');
+  } else {
+    selectedRooms.add(room);
+    btn.classList.add('selected');
+  }
   document.getElementById('selectedDisplay').textContent =
-    selectedRooms.size === 0 ? 'Aucun logement sélectionné' : '✓ Sélectionnés : ' + [...selectedRooms].join(' · ');
+    selectedRooms.size === 0
+      ? 'Aucun logement sélectionné'
+      : '✓ Sélectionnés : ' + [...selectedRooms].join(' · ');
   updateSummary();
 }
 
@@ -573,6 +572,7 @@ function selectStatus(btn) {
   document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+
 function getStatus() {
   const a = document.querySelector('.status-btn.active');
   return a ? a.dataset.val : 'CONFIRMÉ';
@@ -594,18 +594,22 @@ function updateSummary() {
   const arr   = document.getElementById('dateArrivee').value;
   const dep   = document.getElementById('dateDepart').value;
   const box   = document.getElementById('summaryBox');
-  if (!nom && selectedRooms.size === 0) { box.style.display='none'; return; }
+  if (!nom && selectedRooms.size === 0) { box.style.display = 'none'; return; }
   box.style.display = 'block';
   const rooms   = [...selectedRooms].join(', ') || '—';
-  const fmtDate = v => { if(!v) return '—'; return new Date(v).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'}); };
+  const fmtDate = v => {
+    if (!v) return '—';
+    return new Date(v).toLocaleDateString('fr-FR', { weekday:'short', day:'numeric', month:'long' });
+  };
   document.getElementById('summaryContent').innerHTML =
-    `<strong>${nom||'—'}</strong> &nbsp;·&nbsp; ${rooms}<br>
-     ${fmtDate(arr)} → ${fmtDate(dep)} &nbsp;·&nbsp; <span class="summary-nuits">${nuits}</span> nuit${nuits>1?'s':''} &nbsp;·&nbsp; ${pers||'?'} pers.
-     ${pd ? '<br>🍳 '+pd : ''}`;
+    `<strong>${nom || '—'}</strong> &nbsp;·&nbsp; ${rooms}<br>
+     ${fmtDate(arr)} → ${fmtDate(dep)} &nbsp;·&nbsp;
+     <span class="summary-nuits">${nuits}</span> nuit${nuits > 1 ? 's' : ''} &nbsp;·&nbsp; ${pers || '?'} pers.
+     ${pd ? '<br>🍳 ' + pd : ''}`;
 }
 
 function resetForm() {
-  ['nomClient','nbPersonnes','remarques'].forEach(id => document.getElementById(id).value='');
+  ['nomClient', 'nbPersonnes', 'remarques'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('petitDej').value = '';
   document.getElementById('signature').value = 'UF';
   document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
@@ -614,20 +618,25 @@ function resetForm() {
   document.querySelectorAll('.loge-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('selectedDisplay').textContent = 'Aucun logement sélectionné';
   document.getElementById('summaryBox').style.display = 'none';
-  const today = new Date(), fmt = d => d.toISOString().split('T')[0];
+  const today = new Date();
+  const fmt = d => d.toISOString().split('T')[0];
   document.getElementById('dateArrivee').value = fmt(today);
-  const tom = new Date(today); tom.setDate(today.getDate()+1);
+  const tom = new Date(today); tom.setDate(today.getDate() + 1);
   document.getElementById('dateDepart').value = fmt(tom);
 }
 
-function showLoader(msg) { document.getElementById('loaderMsg').textContent=msg; document.getElementById('loader').classList.add('show'); }
-function updateLoader(msg) { document.getElementById('loaderMsg').textContent=msg; }
+function showLoader(msg) {
+  document.getElementById('loaderMsg').textContent = msg;
+  document.getElementById('loader').classList.add('show');
+}
+function updateLoader(msg) { document.getElementById('loaderMsg').textContent = msg; }
 function hideLoader() { document.getElementById('loader').classList.remove('show'); }
+
 function showToast(msg, isError) {
   const t = document.getElementById('toast');
   t.textContent = msg;
-  t.className = 'toast'+(isError?' error':'')+' show';
-  setTimeout(()=>t.classList.remove('show'), 4500);
+  t.className = 'toast' + (isError ? ' error' : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 4500);
 }
 </script>
 </body>
