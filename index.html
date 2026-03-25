@@ -470,17 +470,15 @@ async function addReservation() {
 
   showLoader('Recherche de la prochaine ligne...');
   try {
-    // ── 1. Trouver prochaine ligne libre ──
-    const colA = await apiGet(`${FEUILLE_RESERVATIONS}!A:A`);
-    const rows  = colA.values || [];
-    // On cherche la première ligne vide à partir de la ligne 4
-    let nextRow = 4;
-    for (let i = 3; i < rows.length; i++) {
-      if (!rows[i] || !rows[i][0]) { nextRow = i + 1; break; }
-      nextRow = i + 2;
-    }
-    const newNum = nextRow - 3;
-
+  // ── 1. Trouver prochaine ligne libre ──
+const colC = await apiGet(`${FEUILLE_RESERVATIONS}!C:C`);
+const rows  = colC.values || [];
+let nextRow = 4;
+for (let i = 3; i < rows.length; i++) {
+  if (!rows[i] || !rows[i][0] || !rows[i][0].trim()) { nextRow = i + 1; break; }
+  nextRow = i + 2;
+}
+const newNum = nextRow - 3;
     // ── 2. Écrire dans Réservations ──
     updateLoader('Enregistrement de la réservation...');
     await apiAppend(`${FEUILLE_RESERVATIONS}!A${nextRow}:L${nextRow}`, [[
