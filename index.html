@@ -217,10 +217,7 @@ const FEUILLE_RESERVATIONS = 'Réservations';
 const FEUILLES_MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 
 const ROOM_ROWS = { L1:4, L2:5, L3:6, L4:7, L5:8, B1:10, B2:11, B3:12, B4:13, B5:14, P1:16, P2:17, P3:18, P4:19, P5:20, C1:22, C2:23, C3:24, F2:26, F1:27 };
-
-// ✨ NOUVEAU : Inverser ROOM_ROWS pour une recherche facile (numéro de ligne -> nom de chambre)
 const ROW_TO_ROOM = Object.fromEntries(Object.entries(ROOM_ROWS).map(([room, row]) => [row, room]));
-
 const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 
 // ══════════════════════════════════════════════════
@@ -228,8 +225,7 @@ const API = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
 // ══════════════════════════════════════════════════
 let accessToken = null;
 let selectedRooms = new Set();
-// ✨ NOUVEAU : Stocker les données de disponibilité pour éviter les appels répétés
-let availabilityData = {}; // Format: { "2026-03-25": ["L1", "B2"], "2026-03-26": ["L1"] }
+let availabilityData = {};
 
 // ══════════════════════════════════════════════════
 // AUTH
@@ -246,15 +242,12 @@ function signIn() {
         const ui = await u.json();
         document.getElementById('topbarRight').innerHTML = `<div class="user-badge">${ui.picture ? `<img src="${ui.picture}">` : ''} ${ui.name || ''}</div><button class="btn btn-light" onclick="signOut()">🔓 Déconnexion</button>`;
       } catch(e) {}
-
       document.getElementById('statusDisplay').textContent = '✓ Connecté — ' + FEUILLE_RESERVATIONS;
       document.getElementById('screen-login').style.display = 'none';
       document.getElementById('screen-form').style.display = 'block';
-
-      resetForm(false); // Ne pas vérifier la dispo ici, car on le fait juste après
+      resetForm(false);
       updateSummary();
       showToast('✓ Connecté à Google Sheets !');
-      // ✨ MODIFIÉ : Vérifier la disponibilité pour les dates par défaut après la connexion
       await checkAvailability();
     }
   });
@@ -283,21 +276,40 @@ async function apiCall(url, options = {}) {
   return r.json();
 }
 
+// ✨✨✨ LA CORRECTION EST ICI ✨✨✨
 function rangeUrl(range) {
-  const parts = range.split('!');
-  return `${API}/values/${encodeURIComponent(parts[0])}!${parts[1]}`;
+  // On encode l'intégralité de la chaîne de caractères de la plage.
+  // Cela garantit que les caractères spéciaux comme '!', ':', et les accents
+  // sont correctement formatés pour une URL.
+  return `${API}/values/${encodeURIComponent(range)}`;
 }
 
 async function apiGet(range) {
-  return await apiCall(rangeUrl(range));
+  // Utilisation de l'endpoint :append pour ajouter des données est plus standard
+  // mais ta méthode d'update fonctionne. La correction de rangeUrl devrait suffire.
+  const r = await fetch(rangeUrl(range) + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ values })
+  });
+
+  if (!r.ok) {
+      const e = await r.json().catch(() => ({}));
+      throw new Error(`Écriture échouée : ${e?.error?.message || r.status}`);
+  }
+  return r.json();
 }
-// ✨ NOUVEAU : Fonction pour lire plusieurs plages d'un coup
+
 async function apiBatchGet(ranges) {
   const encodedRanges = ranges.map(r => `ranges=${encodeURIComponent(r)}`).join('&');
   return await apiCall(`${API}/values:batchGet?${encodedRanges}`);
 }
 async function apiAppend(range, values) {
-  const url = rangeUrl(range) + '?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
+  // On utilise l'endpoint :append. Il est plus simple car on n'a pas besoin de spécifier
+  // la ligne exacte, juste la feuille. Google trouvera la première ligne vide.
+  // Pour cela, on change la façon dont `addReservation` l'appelle.
+  const appendRange = range.split('!')[0]; // On ne garde que le nom de la feuille.
+  const url = `${API}/values/${encodeURIComponent(appendRange)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
   return await apiCall(url, { method: 'POST', body: JSON.stringify({ values }) });
 }
 async function apiBatchValues(data) {
@@ -310,6 +322,8 @@ async function getSheetMeta() {
   return map;
 }
 
+// ... (le reste du code JavaScript est inchangé) ...
+
 // ══════════════════════════════════════════════════
 // ✨ NOUVELLE SECTION : VÉRIFICATION DISPONIBILITÉ
 // ══════════════════════════════════════════════════
@@ -317,7 +331,6 @@ async function checkAvailability() {
   const arr = document.getElementById('dateArrivee').value;
   const dep = document.getElementById('dateDepart').value;
   if (!arr || !dep || getNuits() <= 0) {
-    // Si les dates sont invalides, réinitialiser l'état visuel
     availabilityData = {};
     updateRoomsUI();
     return;
@@ -328,13 +341,11 @@ async function checkAvailability() {
     const arrDate = new Date(arr);
     const depDate = new Date(dep);
     
-    // Déterminer les mois et les feuilles concernés
     const monthsToFetch = new Set();
     for (let d = new Date(arrDate); d < depDate; d.setDate(d.getDate() + 1)) {
       monthsToFetch.add(FEUILLES_MOIS[d.getMonth()]);
     }
     
-    // Créer les plages à lire (on prend toutes les chambres et tous les jours pour simplifier)
     const ranges = [...monthsToFetch].map(mois => `${mois}!C4:AG27`);
     
     if (ranges.length === 0) {
@@ -343,23 +354,21 @@ async function checkAvailability() {
     }
     
     const result = await apiBatchGet(ranges);
-    availabilityData = {}; // Réinitialiser les données
+    availabilityData = {};
 
-    // Analyser les résultats
     result.valueRanges.forEach(rangeData => {
       const sheetName = rangeData.range.split('!')[0].replace(/'/g, '');
       const monthIndex = FEUILLES_MOIS.indexOf(sheetName);
       if (monthIndex === -1) return;
 
-      const year = new Date(arr).getFullYear(); // Assumer l'année de la date d'arrivée
+      const year = new Date(arr).getFullYear();
       
       (rangeData.values || []).forEach((rowData, rowIndex) => {
-        const roomName = ROW_TO_ROOM[rowIndex + 4]; // +4 car on commence à lire à la ligne 4
+        const roomName = ROW_TO_ROOM[rowIndex + 4];
         if (!roomName) return;
 
         rowData.forEach((cellValue, colIndex) => {
           if (cellValue && cellValue.trim() !== '') {
-            // La colonne C (index 0) correspond au jour 1
             const dayOfMonth = colIndex + 1;
             const dateStr = `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
             
@@ -384,7 +393,6 @@ function updateRoomsUI() {
   const arr = document.getElementById('dateArrivee').value;
   const dep = document.getElementById('dateDepart').value;
   if (!arr || !dep || getNuits() <= 0) {
-    // Réactiver tous les boutons si les dates sont invalides
     document.querySelectorAll('.loge-btn').forEach(btn => {
       btn.classList.remove('occupied');
       btn.disabled = false;
@@ -411,8 +419,8 @@ function updateRoomsUI() {
     
     if (isOccupied) {
       btn.classList.add('occupied');
-      btn.classList.remove('selected'); // Désélectionner si c'était sélectionné
-      selectedRooms.delete(room); // Retirer du set
+      btn.classList.remove('selected');
+      selectedRooms.delete(room);
       btn.disabled = true;
     } else {
       btn.classList.remove('occupied');
@@ -420,7 +428,6 @@ function updateRoomsUI() {
     }
   });
 
-  // Mettre à jour l'affichage des chambres sélectionnées
   updateSelectedRoomsDisplay();
 }
 
@@ -439,7 +446,6 @@ async function addReservation() {
   if (selectedRooms.size === 0) { showToast('⚠️ Sélectionne un logement', true); return; }
   if (!accessToken)             { showToast('❌ Non connecté à Google', true); return; }
 
-  // ✨ MODIFIÉ : Vérification finale anti-conflit juste avant l'envoi
   for (const room of selectedRooms) {
     const arrDate = new Date(arr);
     const depDate = new Date(dep);
@@ -447,7 +453,7 @@ async function addReservation() {
       const dateStr = d.toISOString().split('T')[0];
       if (availabilityData[dateStr] && availabilityData[dateStr].includes(room)) {
         showToast(`❌ CONFLIT : Le logement ${room} est déjà réservé sur cette période !`, true);
-        await checkAvailability(); // Re-synchroniser l'affichage
+        await checkAvailability();
         return;
       }
     }
@@ -473,7 +479,10 @@ async function addReservation() {
     const nextRow = lastDataRow + 1;
     const newNum  = nextRow - 3;
 
-    await apiAppend(`${FEUILLE_RESERVATIONS}!A${nextRow}:L${nextRow}`, [[ newNum, today.toLocaleDateString('fr-FR'), nom, rooms, fmtFR(arr), fmtFR(dep), nuits, pers ? parseInt(pers) : '', pd || '', statut, remarques, signature ]]);
+    // On prépare la nouvelle ligne à ajouter
+    const newRowData = [[ newNum, today.toLocaleDateString('fr-FR'), nom, rooms, fmtFR(arr), fmtFR(dep), nuits, pers ? parseInt(pers) : '', pd || '', statut, remarques, signature ]];
+    // On appelle apiAppend qui va maintenant gérer l'ajout à la fin de la feuille
+    await apiAppend(FEUILLE_RESERVATIONS, newRowData);
 
     updateLoader('Mise à jour du planning mensuel...');
     const shortName = nom.length > 16 ? nom.substring(0, 16) : nom;
@@ -533,7 +542,6 @@ function toggleRoom(btn) {
   updateSummary();
 }
 
-// ✨ NOUVEAU : Fonction séparée pour mettre à jour l'affichage des logements sélectionnés
 function updateSelectedRoomsDisplay() {
   document.getElementById('selectedDisplay').textContent =
     selectedRooms.size === 0
@@ -555,7 +563,6 @@ function updateSummary() {
   document.getElementById('summaryContent').innerHTML = `<strong>${nom || '—'}</strong> &nbsp;·&nbsp; ${rooms}<br>${fmtDate(arr)} → ${fmtDate(dep)} &nbsp;·&nbsp; <span class="summary-nuits">${nuits}</span> nuit${nuits > 1 ? 's' : ''} &nbsp;·&nbsp; ${pers || '?'} pers.${pd ? '<br>🍳 ' + pd : ''}`;
 }
 
-// ✨ MODIFIÉ : Le reset doit aussi lancer la vérification de disponibilité
 function resetForm(doCheckAvailability = true) {
   ['nomClient', 'nbPersonnes', 'remarques'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('petitDej').value = '';
