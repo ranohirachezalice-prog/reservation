@@ -459,7 +459,8 @@ const ST = {
 // ══════════════════════════════════════════════════════════════
 const U = {
   colLetter(idx){ let s='',n=idx+1; while(n>0){const r=(n-1)%26;s=String.fromCharCode(65+r)+s;n=Math.floor((n-1)/26);} return s; },
-  fmtAr(n){ return Number(n).toLocaleString('fr-FR')+'\u202fAr'; },
+  fmtAr(n){ return Number(n).toLocaleString('fr-FR').replace(/\u202f/g,' ').replace(/\u00a0/g,' ')+' Ar'; },
+  fmtArPdf(n){ return Number(n).toLocaleString('fr-FR').replace(/\u202f/g,'.').replace(/\u00a0/g,'.').replace(/\s/g,'.')+' Ar'; },
   fmtFR(iso){ const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; },
   fmtFRlong(iso){ return new Date(iso+'T00:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'}); },
   todayISO(){ return new Date().toISOString().split('T')[0]; },
@@ -951,9 +952,9 @@ const A = {
     d.hebLines.forEach(l=>{
       doc.setFont('helvetica','normal'); doc.setTextColor(...DK); doc.setFontSize(10);
       doc.text(`${l.rm} — ${l.lbl}`,M,y);
-      doc.text(U.fmtAr(l.total),W-M,y,{align:'right'});
+      doc.text(U.fmtArPdf(l.total),W-M,y,{align:'right'});
       doc.setFontSize(8); doc.setTextColor(...GR);
-      doc.text(`${U.fmtAr(l.prix)} × ${l.nuits} nuit${l.nuits>1?'s':''}`,M+4,y+4);
+      doc.text(`${U.fmtArPdf(l.prix)} x ${l.nuits} nuit${l.nuits>1?'s':''}`,M+4,y+4);
       y+=10;
     });
     sep();
@@ -964,7 +965,7 @@ const A = {
     if(d.restoLines.length){
       d.restoLines.forEach(l=>{
         doc.setFont('helvetica','normal'); doc.setTextColor(...DK); doc.setFontSize(10);
-        doc.text(l.lbl,M,y); doc.text(U.fmtAr(l.total),W-M,y,{align:'right'}); y+=7;
+        doc.text(l.lbl,M,y); doc.text(U.fmtArPdf(l.total),W-M,y,{align:'right'}); y+=7;
       });
     } else {
       doc.setFont('helvetica','italic'); doc.setTextColor(...GR); doc.setFontSize(9);
@@ -976,7 +977,7 @@ const A = {
     doc.setFillColor(...BX); doc.rect(M,y,W-2*M,11,'F');
     doc.setTextColor(...WH); doc.setFont('helvetica','bold'); doc.setFontSize(12);
     doc.text('TOTAL GÉNÉRAL',M+4,y+7.5);
-    doc.text(U.fmtAr(d.grand),W-M-4,y+7.5,{align:'right'});
+    doc.text(U.fmtArPdf(d.grand),W-M-4,y+7.5,{align:'right'});
     y+=18;
 
     // Pied de page
