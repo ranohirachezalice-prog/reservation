@@ -439,6 +439,7 @@ const ST = {
 //  UTILITAIRES
 // ══════════════════════════════════════════════════════════
 const U = {
+  esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;},
   colLetter(idx){let s='',n=idx+1;while(n>0){const r=(n-1)%26;s=String.fromCharCode(65+r)+s;n=Math.floor((n-1)/26);}return s;},
   fmtAr(n){return Number(n).toLocaleString('fr-FR').replace(/\u202f/g,' ').replace(/\u00a0/g,' ')+' Ar';},
   fmtArPdf(n){return Number(n).toLocaleString('fr-FR').replace(/[\u202f\u00a0\s]/g,'.')+' Ar';},
@@ -649,14 +650,15 @@ const A = {
 
       // Lits supplémentaires (Spacieux et Familiaux uniquement)
       if(rule.litSupplMax>0){
+        const autoCalc=rule.label.includes('Spacieux');
         html+=`<div class="rc-field">
           <label>Lits / matelas suppl. <small style="color:var(--gy);font-weight:normal">(${U.fmtAr(rule.litSupplPrix)}/nuit)</small></label>
-          <select id="rcs-${code}" onchange="A.updateRoomConfig('${code}','suppl',+this.value)">`;
+          <select id="rcs-${code}" onchange="A.updateRoomConfig('${code}','suppl',+this.value)"${autoCalc?' disabled title="Calculé automatiquement selon le nombre de personnes"':''}>`;
         for(let i=0;i<=rule.litSupplMax;i++){
           const extra = i>0 ? ` (+${U.fmtAr(i*rule.litSupplPrix)}/nuit)` : '';
           html+=`<option value="${i}" ${cfg.suppl===i?'selected':''}>${i===0?'Aucun':i+' lit'+( i>1?'s':'')+extra}</option>`;
         }
-        html+=`</select></div>`;
+        html+=`</select>${autoCalc?'<small style="color:var(--gy)">Auto selon nb pers.</small>':''}</div>`;
       }
 
       html+=`</div>`;
@@ -877,10 +879,11 @@ const A = {
 
   // ── TROUVER LIGNE VIDE ──
   async findNextRow(){
-    const res=await API.get(`${CFG.feuilleResa}!C${CFG.dataRow}:C500`);
+    const res=await API.get(`${CFG.feuilleResa}!C${CFG.dataRow}:C2000`);
     const rows=res.values||[];
-    for(let i=0;i<rows.length;i++){if(!rows[i]||!rows[i][0]||rows[i][0].trim()==='')return CFG.dataRow+i;}
-    return CFG.dataRow+rows.length;
+    let lastFilled=-1;
+    for(let i=0;i<rows.length;i++){if(rows[i]&&rows[i][0]&&rows[i][0].trim()!=='')lastFilled=i;}
+    return CFG.dataRow+lastFilled+1;
   },
 
   // ── ENREGISTRER ──
@@ -959,7 +962,7 @@ const A = {
   async loadList(){
     if(!ST.token)return;
     try{
-      const r=await API.get(`${CFG.feuilleResa}!A${CFG.dataRow}:N500`);
+      const r=await API.get(`${CFG.feuilleResa}!A${CFG.dataRow}:N2000`);
       ST.resas=(r.values||[]).filter(row=>row[2]&&row[2].trim()).map(row=>({
         id:row[0]||'',date:row[1]||'',nom:row[2]||'',contact:row[3]||'',
         rooms:row[4]||'',configs:row[5]||'',
@@ -979,15 +982,15 @@ const A = {
     this.d.lBody.innerHTML=list.map(r=>`
       <tr>
         <td><strong>#${r.id}</strong></td>
-        <td>${r.nom}</td>
-        <td style="font-size:11px">${r.contact||'—'}</td>
-        <td><strong>${r.rooms}</strong></td>
-        <td>${r.arr}</td><td>${r.dep}</td>
-        <td style="text-align:center">${r.nuits}</td>
-        <td style="font-size:11px;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${r.configs}">${r.configs||'—'}</td>
-        <td style="font-size:11px">${r.pd||'—'}</td>
-        <td><span class="badge ${bc(r.stat)}">${r.stat}</span></td>
-        <td><button class="btn btn-bx btn-xs" onclick='A.showInv(${JSON.stringify(r).replace(/'/g,"&#39;")})'>📄</button></td>
+        <td>${U.esc(r.nom)}</td>
+        <td style="font-size:11px">${U.esc(r.contact)||'—'}</td>
+        <td><strong>${U.esc(r.rooms)}</strong></td>
+        <td>${U.esc(r.arr)}</td><td>${U.esc(r.dep)}</td>
+        <td style="text-align:center">${U.esc(r.nuits)}</td>
+        <td style="font-size:11px;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${U.esc(r.configs)}">${U.esc(r.configs)||'—'}</td>
+        <td style="font-size:11px">${U.esc(r.pd)||'—'}</td>
+        <td><span class="badge ${bc(r.stat)}">${U.esc(r.stat)}</span></td>
+        <td><button class="btn btn-bx btn-xs" data-id="${r.id}" onclick="A.showInvById(this.dataset.id)">📄</button></td>
       </tr>`).join('');
   },
 
@@ -1033,7 +1036,7 @@ const A = {
 
     const pd=row.pd,pdP=CFG.pdPrices[pd]||0;
     let restoLines=[],restoTotal=0;
-    if(pdP>0){const t=pdP*totalPers*nuits;restoTotal=t;restoLines.push({label:`${pd} × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,total:t});}
+    if(pdP>0){const t=pdP*totalPers*nuits;restoTotal=t;restoLines.push({label:U.esc(pd)+` × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,total:t});}
 
     return{row,nuits,totalPers,rooms,hebLines,hebTotal,supplLines,supplTotal,restoLines,restoTotal,grand:hebTotal+supplTotal+restoTotal};
   },
@@ -1065,10 +1068,10 @@ const A = {
       <div class="inv-meta">
         <div class="inv-mr"><span class="inv-ml">Date :</span><span class="inv-mv">${U.todayFRlong()}</span></div>
         <div class="inv-mr"><span class="inv-ml">Réf. N° :</span><span class="inv-mv">${d.row.id}</span></div>
-        <div class="inv-mr"><span class="inv-ml">Client :</span><span class="inv-mv">${d.row.nom}</span></div>
-        <div class="inv-mr"><span class="inv-ml">Contact :</span><span class="inv-mv">${d.row.contact||'—'}</span></div>
-        <div class="inv-mr"><span class="inv-ml">Arrivée :</span><span class="inv-mv">${d.row.arr}</span></div>
-        <div class="inv-mr"><span class="inv-ml">Départ :</span><span class="inv-mv">${d.row.dep}</span></div>
+        <div class="inv-mr"><span class="inv-ml">Client :</span><span class="inv-mv">${U.esc(d.row.nom)}</span></div>
+        <div class="inv-mr"><span class="inv-ml">Contact :</span><span class="inv-mv">${U.esc(d.row.contact)||'—'}</span></div>
+        <div class="inv-mr"><span class="inv-ml">Arrivée :</span><span class="inv-mv">${U.esc(d.row.arr)}</span></div>
+        <div class="inv-mr"><span class="inv-ml">Départ :</span><span class="inv-mv">${U.esc(d.row.dep)}</span></div>
         <div class="inv-mr"><span class="inv-ml">Nuitées :</span><span class="inv-mv">${d.nuits}</span></div>
         <div class="inv-mr"><span class="inv-ml">Personnes :</span><span class="inv-mv">${d.totalPers}</span></div>
       </div>
@@ -1087,6 +1090,7 @@ const A = {
     this.d.invMod.classList.add('show');
   },
 
+  showInvById(id){const row=ST.resas.find(r=>String(r.id)===String(id));if(row)this.showInv(row);},
   closeInv(){this.d.invMod.classList.remove('show');},
 
   downloadPdf(){
