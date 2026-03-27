@@ -13,17 +13,14 @@ body{font-family:Arial,sans-serif;background:#f4f0f0;color:#222;min-height:100vh
   --gr:#1a7a3c;--bl:#1a4a8a;--rd:#c0392b;
   --gy:#888;--bd:#e8d8da;--wh:#fff;
 }
-/* TOPBAR */
 .topbar{background:var(--bx);color:#fff;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
 .topbar h1{font-size:15px;font-weight:bold}
 .topbar p{font-size:11px;opacity:.75;margin-top:2px}
 .topbar-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-/* ONGLETS */
 .tabs{display:flex;background:var(--bxd);border-bottom:2px solid #8B2A3A}
 .tab-btn{padding:9px 18px;background:none;border:none;color:rgba(255,255,255,.6);font-size:13px;font-weight:bold;cursor:pointer;border-bottom:3px solid transparent;transition:all .18s;white-space:nowrap}
 .tab-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
 .tab-btn.active{color:#fff;border-bottom-color:var(--mu);background:rgba(255,255,255,.11)}
-/* BOUTONS */
 .btn{padding:7px 15px;border:none;border-radius:6px;font-size:13px;font-weight:bold;cursor:pointer;transition:opacity .15s,transform .1s;display:inline-flex;align-items:center;gap:5px}
 .btn:hover{opacity:.87}.btn:active{transform:scale(.97)}
 .btn-light{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
@@ -33,42 +30,34 @@ body{font-family:Arial,sans-serif;background:#f4f0f0;color:#222;min-height:100vh
 .btn-gray{background:#e0e0e0;color:#333}
 .btn-sm{padding:5px 11px;font-size:12px}
 .btn-xs{padding:3px 8px;font-size:11px;border-radius:4px}
-/* LAYOUT */
 .main{max-width:900px;margin:0 auto;padding:14px 12px 48px}
 #screen-login{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:68vh;text-align:center;gap:18px}
 #screen-app{display:none}
 .tab-panel{display:none}
 .tab-panel.active{display:block;padding-top:14px}
-/* LOGIN */
 .login-card{background:#fff;border-radius:16px;padding:44px 36px;max-width:440px;width:100%;box-shadow:0 4px 28px rgba(107,26,42,.14);border:1px solid var(--bd)}
 .login-card .icon{font-size:50px;margin-bottom:14px}
 .login-card h2{font-size:19px;color:var(--bx);margin-bottom:8px}
 .login-card .sub{font-size:13px;color:var(--gy);margin-bottom:22px;line-height:1.6}
 .btn-google{background:#fff;color:#444;border:1.5px solid #ddd;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:bold;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:box-shadow .2s;width:100%;justify-content:center}
 .btn-google:hover{box-shadow:0 2px 10px rgba(0,0,0,.15);border-color:#aaa}
-/* CARTES */
 .card{background:#fff;border-radius:10px;border:1px solid var(--bd);margin-bottom:13px;overflow:hidden}
 .card.loading .card-body{opacity:.4;pointer-events:none}
 .card-hdr{background:var(--bx);color:#fff;padding:8px 14px;font-size:13px;font-weight:bold;letter-spacing:.4px}
 .card-body{padding:14px}
-/* FORMULAIRE */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .fg{display:flex;flex-direction:column;gap:4px}
 .fg.full{grid-column:1/-1}
 label{font-size:11px;font-weight:bold;color:var(--bx);text-transform:uppercase;letter-spacing:.3px}
 input,select,textarea{border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:14px;color:#222;background:#fff;width:100%;font-family:Arial,sans-serif;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bx)}
 textarea{resize:vertical;min-height:50px}
-/* RÉSUMÉ */
 .summary-box{background:var(--bxl);border:1.5px solid #d4a0a8;border-radius:8px;padding:11px 14px;margin-bottom:13px;font-size:14px;line-height:1.8}
 .nuits-big{font-size:20px;font-weight:bold;color:var(--bx)}
 .err-text{color:var(--rd);font-weight:bold}
-/* ALERTE DOUBLON */
 .alert-box{border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;display:none;gap:8px;align-items:flex-start}
 .alert-box.show{display:flex}
 .alert-doublon{background:var(--mul);border:1.5px solid var(--mu);color:#7a5000}
-/* STATUT */
 .status-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:5px}
 .s-btn{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:bold;border:1.5px solid transparent;cursor:pointer;transition:all .15s}
 .s-btn[data-v="CONFIRMÉ"]{background:#e8f5ee;color:var(--gr);border-color:#a8d8bc}
@@ -79,7 +68,6 @@ textarea{resize:vertical;min-height:50px}
 .s-btn[data-v="ANNULÉ"].on{background:var(--rd);color:#fff}
 .s-btn[data-v="TERMINÉ"]{background:#f0f0ff;color:#3a3aaa;border-color:#b4b4e8}
 .s-btn[data-v="TERMINÉ"].on{background:#3a3aaa;color:#fff}
-/* LOGEMENTS */
 .room-group{margin-bottom:10px}
 .room-group-title{font-size:10px;font-weight:bold;color:var(--gy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid #eee}
 .room-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:3px}
@@ -90,8 +78,6 @@ textarea{resize:vertical;min-height:50px}
 .r-btn .cap-badge{position:absolute;top:-6px;right:-4px;background:var(--mu);color:#fff;font-size:9px;border-radius:8px;padding:1px 4px;font-weight:bold;white-space:nowrap}
 .r-btn.on .cap-badge{background:rgba(255,255,255,.35);color:#fff}
 .rooms-selected{margin-top:8px;font-size:13px;color:var(--bx);font-weight:bold;min-height:20px}
-
-/* ═══ MINI-FORMULAIRE CHAMBRES ═══ */
 #roomConfig{margin-top:12px;display:none}
 #roomConfig.show{display:block}
 .rc-title{font-size:12px;font-weight:bold;color:var(--bx);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px;padding-bottom:5px;border-bottom:2px solid var(--bd)}
@@ -103,21 +89,18 @@ textarea{resize:vertical;min-height:50px}
 .rc-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;align-items:end}
 .rc-field{display:flex;flex-direction:column;gap:4px}
 .rc-field label{font-size:10px;font-weight:bold;color:var(--bx);text-transform:uppercase}
-.rc-field input,
-.rc-field select{border:1.5px solid #ddd;border-radius:6px;padding:6px 8px;font-size:13px;background:#fff;width:100%}
+.rc-field input,.rc-field select{border:1.5px solid #ddd;border-radius:6px;padding:6px 8px;font-size:13px;background:#fff;width:100%}
 .rc-field input:focus,.rc-field select:focus{outline:none;border-color:var(--bx)}
-/* Boutons Twin/Double */
 .config-btns{display:flex;gap:6px;margin-top:4px}
 .cfg-btn{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:bold;border:1.5px solid var(--bd);cursor:pointer;background:#fff;color:#555;transition:all .14s}
 .cfg-btn:hover{border-color:var(--bx);color:var(--bx)}
 .cfg-btn.on{background:var(--bx);color:#fff;border-color:var(--bx)}
-/* Alerte capacité */
 .cap-warn{font-size:11px;color:var(--rd);font-weight:bold;margin-top:4px;display:none}
 .cap-warn.show{display:block}
-/* Récap mini */
 .rc-recap{margin-top:8px;font-size:12px;color:#555;background:#fff;border-radius:5px;padding:6px 10px;border:1px solid #e0d0d2}
-
-/* LISTE */
+/* ✨ NOTE demi-pension dans le formulaire */
+.dp-note{background:#e8f5ee;border:1px solid #a8d8bc;border-radius:6px;padding:6px 10px;font-size:12px;color:#1a5030;margin-top:5px;display:none}
+.dp-note.show{display:block}
 .list-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
 .list-toolbar input{flex:1;min-width:150px;padding:7px 10px;border:1.5px solid #ddd;border-radius:6px;font-size:13px}
 .list-count{font-size:12px;color:var(--gy);margin-left:auto;white-space:nowrap}
@@ -131,8 +114,25 @@ tr:hover td{background:var(--bxl)}
 .b-ok{background:#e8f5ee;color:var(--gr)}.b-opt{background:var(--mul);color:#c47a00}
 .b-ann{background:#fdf0f0;color:var(--rd)}.b-ter{background:#f0f0ff;color:#3a3aaa}
 .empty-row{text-align:center;padding:28px;color:#bbb;font-size:14px}
-
-/* MODALE FACTURE */
+/* ═══ BOUTONS TABLEAU ═══ */
+.btn-edit{background:#1a4a8a;color:#fff}
+.btn-cancel-resa{background:#c0392b;color:#fff}
+.actions-cell{display:flex;gap:4px;flex-wrap:nowrap}
+/* ═══ MODALE ÉDITION ═══ */
+.edit-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:650;overflow-y:auto;padding:16px}
+.edit-modal-bg.show{display:flex;align-items:flex-start;justify-content:center}
+.edit-modal-box{background:#fff;border-radius:12px;max-width:700px;width:100%;margin:auto;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.edit-modal-hdr{background:var(--bx);color:#fff;padding:13px 18px;display:flex;align-items:center;justify-content:space-between}
+.edit-modal-hdr h3{font-size:15px;font-weight:bold}
+.edit-modal-hdr span{font-size:12px;opacity:.75}
+.edit-modal-body{padding:16px}
+.edit-section{margin-bottom:14px}
+.edit-section-title{font-size:11px;font-weight:bold;color:var(--bx);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;padding-bottom:5px;border-bottom:1.5px solid var(--bd)}
+.edit-actions{display:flex;gap:8px;padding:12px 16px;background:#f4f0f0;border-top:1px solid var(--bd);flex-wrap:wrap}
+/* Bandeau alerte modification */
+.edit-warn{background:#fff8e8;border:1.5px solid var(--mu);border-radius:8px;padding:9px 14px;font-size:12px;color:#7a5000;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
+/* Statut rapide dans le tableau */
+.stat-select{border:1.5px solid #ddd;border-radius:12px;padding:2px 6px;font-size:11px;font-weight:bold;cursor:pointer;background:#fff}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;overflow-y:auto;padding:18px}
 .modal-bg.show{display:flex;align-items:flex-start;justify-content:center}
 .modal-box{background:#fff;border-radius:10px;max-width:720px;width:100%;margin:auto;overflow:hidden}
@@ -155,8 +155,6 @@ tr:hover td{background:var(--bxl)}
 .inv-total{background:var(--bx);color:#fff;padding:9px 14px;border-radius:6px;display:flex;justify-content:space-between;font-size:15px;font-weight:bold;margin-top:14px}
 .inv-foot{margin-top:20px;font-size:11px;color:#888;text-align:center;border-top:1px solid #eee;padding-top:12px;line-height:1.8}
 @media print{body>*:not(.modal-bg){display:none!important}.modal-bg{position:static!important;background:none!important;padding:0!important;display:block!important}.modal-actions{display:none!important}.modal-box{box-shadow:none;border-radius:0}}
-
-/* TOAST & LOADER */
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(110px);background:var(--gr);color:#fff;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:bold;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .3s;z-index:999;text-align:center;max-width:90vw}
 .toast.err{background:var(--rd)}.toast.on{transform:translateX(-50%) translateY(0)}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center;flex-direction:column;gap:13px;color:#fff;font-size:15px;font-weight:bold}
@@ -165,11 +163,9 @@ tr:hover td{background:var(--bxl)}
 @keyframes sp{to{transform:rotate(360deg)}}
 .user-badge{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 11px;font-size:12px}
 .user-badge img{width:20px;height:20px;border-radius:50%}
-
-/* RESPONSIVE */
 @media(max-width:600px){
   .topbar h1{font-size:13px}.tab-btn{padding:8px 11px;font-size:12px}
-  .grid2,.grid3{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
   .room-grid{grid-template-columns:repeat(4,1fr)}
   .login-card{padding:28px 16px}.main{padding:9px 8px 40px}
   .inv-meta{grid-template-columns:1fr}#inv{padding:18px 14px}
@@ -183,14 +179,12 @@ tr:hover td{background:var(--bxl)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div><h1>🏨 Hôtel Chez Alice — Réservations 2026</h1><p id="statusTxt">Connexion Google requise</p></div>
   <div class="topbar-right" id="topbarRight"></div>
 </div>
 
 <div class="main">
-  <!-- LOGIN -->
   <div id="screen-login">
     <div class="login-card">
       <div class="icon">🏨</div>
@@ -204,23 +198,19 @@ tr:hover td{background:var(--bxl)}
     </div>
   </div>
 
-  <!-- APP -->
   <div id="screen-app">
     <div class="tabs" id="tabsBar">
       <button class="tab-btn active" data-tab="tab-form">✏️ Nouvelle réservation</button>
       <button class="tab-btn" data-tab="tab-list">📋 Liste des réservations</button>
     </div>
 
-    <!-- ── FORMULAIRE ── -->
     <div id="tab-form" class="tab-panel active">
-
       <div class="alert-box alert-doublon" id="alertDoublon">
         <span style="font-size:18px;flex-shrink:0">⚠️</span>
         <div id="alertTxt"></div>
       </div>
       <div class="summary-box" id="summaryBox" style="display:none"><div id="summaryTxt"></div></div>
 
-      <!-- Client & Contact -->
       <div class="card">
         <div class="card-hdr">👤 Client, Contact & Séjour</div>
         <div class="card-body">
@@ -230,7 +220,6 @@ tr:hover td{background:var(--bxl)}
               <input type="text" id="fNom" placeholder="Ex: Jean Dupont  ou  Mora Travel" required>
             </div>
             <div class="fg">
-              <!-- ✨ NOUVEAU : champ Contact séparé -->
               <label>Contact (tél / email)</label>
               <input type="text" id="fContact" placeholder="Ex: +261 34 12 345 67 ou email@...">
             </div>
@@ -244,15 +233,20 @@ tr:hover td{background:var(--bxl)}
             </div>
             <div class="fg">
               <label>Petit-déj / Pension</label>
-              <select id="fPd">
+              <!-- ✨ CORRIGÉ : labels clairs avec prix -->
+              <select id="fPd" onchange="A.onPdChange()">
                 <option value="">— Non précisé —</option>
                 <option value="Continental">Continental — 10 000 Ar/pers.</option>
                 <option value="Continental + Œuf">Continental + Œuf — 16 000 Ar/pers.</option>
                 <option value="Gourmand">Gourmand — 18 000 Ar/pers.</option>
                 <option value="Malagasy">Malagasy — 10 000 Ar/pers. (commander la veille)</option>
-                <option value="Demi-pension">Demi-pension (PD + dîner)</option>
+                <option value="Demi-pension">Demi-pension — 66 000 Ar/pers. (PD + dîner)</option>
                 <option value="Bed Only">Bed Only (sans PD)</option>
               </select>
+              <!-- ✨ Note explicative demi-pension -->
+              <div class="dp-note" id="dpNote">
+                🍽️ <strong>Demi-pension</strong> = Petit-déjeuner Continental (10 000 Ar) + Dîner menu complet (56 000 Ar) = <strong>66 000 Ar / pers. / nuit</strong>
+              </div>
             </div>
             <div class="fg">
               <label>Statut</label>
@@ -277,14 +271,10 @@ tr:hover td{background:var(--bxl)}
         </div>
       </div>
 
-      <!-- Logements -->
       <div class="card" id="cardRooms">
         <div class="card-hdr">🏠 Logement(s) — cliquer pour sélectionner</div>
         <div class="card-body" id="roomsBody">
-          <!-- Boutons générés par JS -->
           <div class="rooms-selected" id="roomsSel">Aucun logement sélectionné</div>
-
-          <!-- ✨ MINI-FORMULAIRE par chambre -->
           <div id="roomConfig">
             <div class="rc-title">⚙️ Configuration des logements sélectionnés</div>
             <div id="rcRooms"></div>
@@ -299,7 +289,6 @@ tr:hover td{background:var(--bxl)}
       </div>
     </div>
 
-    <!-- ── LISTE ── -->
     <div id="tab-list" class="tab-panel">
       <div class="list-toolbar">
         <input type="text" id="searchIn" placeholder="🔍 Rechercher — nom, contact, logement, statut...">
@@ -309,7 +298,7 @@ tr:hover td{background:var(--bxl)}
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>N°</th><th>Client</th><th>Contact</th><th>Logement(s)</th><th>Arrivée</th><th>Départ</th><th>Nuits</th><th>Config.</th><th>PD</th><th>Statut</th><th>Actions</th></tr>
+            <tr><th>N°</th><th>Client</th><th>Contact</th><th>Logement(s)</th><th>Arrivée</th><th>Départ</th><th>Nuits</th><th>Config.</th><th>Pension</th><th>Statut</th><th>Actions</th></tr>
           </thead>
           <tbody id="listBody">
             <tr><td colspan="11" class="empty-row">Connectez-vous pour afficher les réservations</td></tr>
@@ -320,7 +309,6 @@ tr:hover td{background:var(--bxl)}
   </div>
 </div>
 
-<!-- MODALE FACTURE -->
 <div class="modal-bg" id="invModal">
   <div class="modal-box">
     <div class="modal-actions">
@@ -332,13 +320,97 @@ tr:hover td{background:var(--bxl)}
   </div>
 </div>
 
+<!-- ═══ MODALE MODIFICATION RÉSERVATION ═══ -->
+<div class="edit-modal-bg" id="editModal">
+  <div class="edit-modal-box">
+    <div class="edit-modal-hdr">
+      <h3>✏️ Modifier la réservation <span id="editResaId"></span></h3>
+      <span id="editResaNom"></span>
+    </div>
+    <div class="edit-modal-body">
+      <div class="edit-warn">
+        <span style="font-size:16px;flex-shrink:0">⚠️</span>
+        <div>Modifier les <strong>dates ou logements</strong> effacera l'ancien planning mensuel et écrira le nouveau automatiquement. Les autres champs sont mis à jour directement.</div>
+      </div>
+      <!-- Champs éditables -->
+      <div class="edit-section">
+        <div class="edit-section-title">Client & Contact</div>
+        <div class="grid2">
+          <div class="fg"><label>Nom client / Agence</label><input type="text" id="eNom"></div>
+          <div class="fg"><label>Contact</label><input type="text" id="eContact"></div>
+        </div>
+      </div>
+      <div class="edit-section">
+        <div class="edit-section-title">Dates & Séjour</div>
+        <div class="grid2">
+          <div class="fg"><label>Date d'arrivée</label><input type="date" id="eArr"></div>
+          <div class="fg"><label>Date de départ</label><input type="date" id="eDep"></div>
+          <div class="fg"><label>Nb personnes total</label><input type="number" id="ePers" min="1" max="50"></div>
+          <div class="fg">
+            <label>Pension</label>
+            <select id="ePd">
+              <option value="">— Non précisé —</option>
+              <option value="Continental">Continental — 10 000 Ar/pers.</option>
+              <option value="Continental + Œuf">Continental + Œuf — 16 000 Ar/pers.</option>
+              <option value="Gourmand">Gourmand — 18 000 Ar/pers.</option>
+              <option value="Malagasy">Malagasy — 10 000 Ar/pers.</option>
+              <option value="Demi-pension">Demi-pension — 66 000 Ar/pers.</option>
+              <option value="Bed Only">Bed Only (sans PD)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="edit-section">
+        <div class="edit-section-title">Logements</div>
+        <div id="eRoomsInfo" style="font-size:13px;color:var(--gy);margin-bottom:8px"></div>
+        <div class="grid2">
+          <div class="fg">
+            <label>Logements (ex: L1-B3)</label>
+            <input type="text" id="eRooms" placeholder="Ex: L1 ou L1-B3-P2">
+            <small style="color:var(--gy)">Séparer par - pour plusieurs logements</small>
+          </div>
+          <div class="fg">
+            <label>Configuration (optionnel)</label>
+            <input type="text" id="eConfigs" placeholder="Ex: L1(2p,Twin) | B3(3p,Double)">
+          </div>
+        </div>
+      </div>
+      <div class="edit-section">
+        <div class="edit-section-title">Statut & Notes</div>
+        <div class="grid2">
+          <div class="fg">
+            <label>Statut</label>
+            <select id="eStat">
+              <option value="CONFIRMÉ">✓ CONFIRMÉ</option>
+              <option value="OPTION">⏳ OPTION</option>
+              <option value="ANNULÉ">✕ ANNULÉ</option>
+              <option value="TERMINÉ">✔ TERMINÉ</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Signature</label>
+            <input type="text" id="eSig">
+          </div>
+          <div class="fg full">
+            <label>Remarques</label>
+            <textarea id="eRem" style="min-height:44px"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="edit-actions">
+      <button class="btn btn-green" id="btnSaveEdit">💾 Enregistrer les modifications</button>
+      <button class="btn btn-gray" onclick="A.closeEdit()">✕ Annuler</button>
+      <div style="flex:1"></div>
+      <button class="btn" style="background:#c0392b;color:#fff" id="btnCancelResa">🗑️ Annuler cette réservation</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="loader"><div class="spin"></div><div id="loaderTxt">Chargement...</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-//  CONFIGURATION
-// ══════════════════════════════════════════════════════════
 const CFG = {
   sheetId:     '1iRIPb-8q9WU4q6v-zpeiupilZMycCaRlwPPtWLSXDBU',
   clientId:    '665037505291-d5ukeotro0bktadudonmajsrgpj3kltv.apps.googleusercontent.com',
@@ -349,64 +421,13 @@ const CFG = {
   mois: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
   roomRows: { L1:4,L2:5,L3:6,L4:7,L5:8, B1:10,B2:11,B3:12,B4:13,B5:14, P1:16,P2:17,P3:18,P4:19,P5:20, C1:22,C2:23,C3:24, F2:26,F1:27 },
 
-  // ✨ Règles complètes par type de logement
   roomRules: {
-    L: { // Spacieux
-      label:'Bungalow Spacieux', prix:142000,
-      persBase:2, persMax:4,
-      canTwin:true,      // peut être configuré en twin
-      litSupplMax:2,     // max 2 lits supplémentaires
-      litSupplPrix:15000,
-      // gratuit pour twin 2 pers (lit suppl mais même tarif)
-      // payant à partir de 3 pers
-      litSupplGratuitJusqua:2,
-      desc:'King size, belle vue, eau chaude électrique',
-    },
-    B: { // Classique
-      label:'Bungalow Classique', prix:92000,
-      persBase:2, persMax:2,
-      canTwin:true,
-      litSupplMax:0,
-      litSupplPrix:0,
-      litSupplGratuitJusqua:2,
-      desc:'Double ou twin, eau chaude solaire',
-    },
-    P: { // Paillote
-      label:'Paillote', prix:57000,
-      persBase:2, persMax:2,
-      canTwin:true,
-      litSupplMax:0,
-      litSupplPrix:0,
-      litSupplGratuitJusqua:2,
-      desc:'Double ou twin, sanitaires extérieurs, eau froide',
-    },
-    C: { // Triple
-      label:'Triple Classique', prix:112000,
-      persBase:3, persMax:3,
-      canTwin:false,
-      litSupplMax:0,
-      litSupplPrix:0,
-      litSupplGratuitJusqua:3,
-      desc:'3 lits simples ou 1 grand lit + 1 simple',
-    },
-    F2: { // Familial 4p
-      label:'Familial 4 pers.', prix:132000,
-      persBase:4, persMax:5,
-      canTwin:false,
-      litSupplMax:1,
-      litSupplPrix:15000,
-      litSupplGratuitJusqua:4,
-      desc:'1 grand lit + mezzanine, eau chaude solaire',
-    },
-    F1: { // Familial 6p
-      label:'Familial 6 pers.', prix:152000,
-      persBase:6, persMax:8,
-      canTwin:false,
-      litSupplMax:2,
-      litSupplPrix:15000,
-      litSupplGratuitJusqua:6,
-      desc:'2 chambres + 2 grands lits + mezzanine, eau chaude solaire',
-    },
+    L:  { label:'Bungalow Spacieux',  prix:142000, persBase:2, persMax:4, canTwin:true,  litSupplMax:2, litSupplPrix:15000, litSupplGratuitJusqua:2, desc:'King size, eau chaude électrique' },
+    B:  { label:'Bungalow Classique', prix:92000,  persBase:2, persMax:2, canTwin:true,  litSupplMax:0, litSupplPrix:0,     litSupplGratuitJusqua:2, desc:'Double ou twin, eau chaude solaire' },
+    P:  { label:'Paillote',           prix:57000,  persBase:2, persMax:2, canTwin:true,  litSupplMax:0, litSupplPrix:0,     litSupplGratuitJusqua:2, desc:'Double ou twin, sanitaires ext.' },
+    C:  { label:'Triple Classique',   prix:112000, persBase:3, persMax:3, canTwin:false, litSupplMax:0, litSupplPrix:0,     litSupplGratuitJusqua:3, desc:'3 lits simples ou 1gd + 1 simple' },
+    F2: { label:'Familial 4 pers.',   prix:132000, persBase:4, persMax:5, canTwin:false, litSupplMax:1, litSupplPrix:15000, litSupplGratuitJusqua:4, desc:'1 grand lit + mezzanine' },
+    F1: { label:'Familial 6 pers.',   prix:152000, persBase:6, persMax:8, canTwin:false, litSupplMax:2, litSupplPrix:15000, litSupplGratuitJusqua:6, desc:'2 chambres + mezzanine' },
   },
 
   roomGroups: [
@@ -417,73 +438,74 @@ const CFG = {
     { label:'Familial (F2=4p·132k | F1=6p·152k)',         rooms:[{id:'F2',lbl:'F2 (4p)'},{id:'F1',lbl:'F1 (6p)'}], cols:2 },
   ],
 
-  pdPrices: { 'Continental':10000,'Continental + Œuf':16000,'Gourmand':18000,'Malagasy':10000 },
+  // ✨ CORRIGÉ : pdPrices avec demi-pension décomposée
+  // La clé stocke le prix TOTAL par personne par nuit
+  // Pour la facture on décompose PD + dîner séparément
+  pdPrices: {
+    'Continental':         { total:10000, pd:10000,  diner:0,     label:'Petit-déjeuner Continental' },
+    'Continental + Œuf':   { total:16000, pd:16000,  diner:0,     label:'Petit-déjeuner Continental + Œuf' },
+    'Gourmand':            { total:18000, pd:18000,  diner:0,     label:'Petit-déjeuner Gourmand' },
+    'Malagasy':            { total:10000, pd:10000,  diner:0,     label:'Petit-déjeuner Malagasy' },
+    'Demi-pension':        { total:66000, pd:10000,  diner:56000, label:'Demi-pension' },
+  },
 };
 
-// Obtenir les règles d'un logement par son code (ex: "L1" → règles de "L")
 function roomRule(code){ return CFG.roomRules[code] || CFG.roomRules[code.replace(/\d+/,'')] || null; }
 
-// ══════════════════════════════════════════════════════════
-//  ÉTAT
-// ══════════════════════════════════════════════════════════
 const ST = {
   token:null, avail:{}, resas:[], invData:null,
   timerDeb:null, timerDoub:null,
   selRooms: new Set(),
-  // ✨ Config par chambre : { L1: {pers:2, twin:true, suppl:0}, ... }
   roomConfigs: {},
+  editingResa: null,   // réservation en cours d'édition
   rowToRoom: Object.fromEntries(Object.entries(CFG.roomRows).map(([r,row])=>[row,r])),
 };
 
-// ══════════════════════════════════════════════════════════
-//  UTILITAIRES
-// ══════════════════════════════════════════════════════════
 const U = {
   esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;},
   colLetter(idx){let s='',n=idx+1;while(n>0){const r=(n-1)%26;s=String.fromCharCode(65+r)+s;n=Math.floor((n-1)/26);}return s;},
   fmtAr(n){return Number(n).toLocaleString('fr-FR').replace(/\u202f/g,' ').replace(/\u00a0/g,' ')+' Ar';},
   fmtArPdf(n){return Number(n).toLocaleString('fr-FR').replace(/[\u202f\u00a0\s]/g,'.')+' Ar';},
   fmtFR(iso){const[y,m,d]=iso.split('-');return`${d}/${m}/${y}`;},
+  // ✨ Convertir DD/MM/YYYY → YYYY-MM-DD (pour les inputs date)
+  frToISO(fr){
+    if(!fr)return'';
+    const p=fr.split('/');
+    if(p.length===3)return`${p[2]}-${p[1].padStart(2,'0')}-${p[0].padStart(2,'0')}`;
+    return fr; // déjà en ISO
+  },
   fmtFRlong(iso){return new Date(iso+'T00:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'});},
   todayISO(){return new Date().toISOString().split('T')[0];},
   addDays(iso,n){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return d.toISOString().split('T')[0];},
   nuits(a,d){if(!a||!d)return 0;return Math.max(0,Math.floor((new Date(d)-new Date(a))/86400000));},
   todayFRlong(){return new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});},
-  // Résumé texte d'une config chambre
-  configSummary(code, cfg){
-    const rule=roomRule(code); if(!rule) return '';
+  configSummary(code,cfg){
+    const rule=roomRule(code);if(!rule)return'';
     const parts=[];
-    if(cfg.twin && rule.canTwin) parts.push('Twin');
-    else if(rule.canTwin) parts.push('Double');
+    if(cfg.twin&&rule.canTwin)parts.push('Twin');else if(rule.canTwin)parts.push('Double');
     parts.push(`${cfg.pers} pers.`);
-    if(cfg.suppl>0) parts.push(`+${cfg.suppl} lit${cfg.suppl>1?'s':''} suppl.`);
+    if(cfg.suppl>0)parts.push(`+${cfg.suppl} lit${cfg.suppl>1?'s':''} suppl.`);
     return parts.join(', ');
   },
-  // Calcul supplément lit pour une chambre
-  litSupplCost(code, cfg, nuits){
-    const rule=roomRule(code); if(!rule||!rule.litSupplPrix) return 0;
-    const gratuits = rule.litSupplGratuitJusqua||0;
-    // Pour Spacieux : twin 2 pers → 1 lit suppl mais gratuit
-    // Pour Spacieux : 3 pers → 1 lit suppl payant
+  litSupplCost(code,cfg,nuits){
+    const rule=roomRule(code);if(!rule||!rule.litSupplPrix)return 0;
+    const gratuits=rule.litSupplGratuitJusqua||0;
     if(rule.label.includes('Spacieux')){
-      const persPayantes = Math.max(0, cfg.pers - gratuits);
-      return persPayantes * rule.litSupplPrix * nuits;
+      const persPayantes=Math.max(0,cfg.pers-gratuits);
+      return persPayantes*rule.litSupplPrix*nuits;
     }
-    // Familiaux
-    const supplPayants = Math.max(0, cfg.suppl - 0); // tous payants pour familiaux
-    const persExtras   = Math.max(0, cfg.pers - rule.persBase);
-    const litsConcernes = Math.max(supplPayants, persExtras > 0 ? Math.ceil(persExtras) : 0);
-    return Math.min(litsConcernes, rule.litSupplMax) * rule.litSupplPrix * nuits;
+    const persExtras=Math.max(0,cfg.pers-rule.persBase);
+    const litsConcernes=Math.max(cfg.suppl,persExtras>0?Math.ceil(persExtras):0);
+    return Math.min(litsConcernes,rule.litSupplMax)*rule.litSupplPrix*nuits;
   },
+  // ✨ NOUVEAU : calcul pension total par pers/nuit
+  getPdInfo(pd){ return CFG.pdPrices[pd]||null; },
 };
 
-// ══════════════════════════════════════════════════════════
-//  API SHEETS
-// ══════════════════════════════════════════════════════════
 const API = {
   base(){return`https://sheets.googleapis.com/v4/spreadsheets/${CFG.sheetId}`;},
   async call(url,opts={}){
-    if(!ST.token) throw new Error('Non connecté');
+    if(!ST.token)throw new Error('Non connecté');
     const r=await fetch(url,{...opts,headers:{'Authorization':`Bearer ${ST.token}`,'Content-Type':'application/json',...(opts.headers||{})}});
     if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(`API ${r.status}: ${e?.error?.message||'?'}`);}
     return r.json();
@@ -496,9 +518,6 @@ const API = {
   async sheetMeta(){const d=await this.call(`${this.base()}?fields=sheets.properties`);return(d.sheets||[]).reduce((a,s)=>{a[s.properties.title]=s.properties.sheetId;return a;},{});},
 };
 
-// ══════════════════════════════════════════════════════════
-//  APPLICATION
-// ══════════════════════════════════════════════════════════
 const A = {
   init(){
     this.d={
@@ -508,6 +527,7 @@ const A = {
       fNom:document.getElementById('fNom'),fContact:document.getElementById('fContact'),
       fArr:document.getElementById('fArr'),fDep:document.getElementById('fDep'),
       fPd:document.getElementById('fPd'),fRem:document.getElementById('fRem'),fSig:document.getElementById('fSig'),
+      dpNote:document.getElementById('dpNote'),
       statRow:document.getElementById('statusRow'),
       cardRm:document.getElementById('cardRooms'),rmBody:document.getElementById('roomsBody'),
       rmSel:document.getElementById('roomsSel'),
@@ -517,6 +537,16 @@ const A = {
       btnAdd:document.getElementById('btnAdd'),btnRes:document.getElementById('btnReset'),
       lBody:document.getElementById('listBody'),lCount:document.getElementById('listCount'),searchI:document.getElementById('searchIn'),
       invMod:document.getElementById('invModal'),invCnt:document.getElementById('inv'),btnPdf:document.getElementById('btnDlPdf'),
+      // Modale édition
+      editMod:document.getElementById('editModal'),
+      eNom:document.getElementById('eNom'),eContact:document.getElementById('eContact'),
+      eArr:document.getElementById('eArr'),eDep:document.getElementById('eDep'),
+      ePers:document.getElementById('ePers'),ePd:document.getElementById('ePd'),
+      eRooms:document.getElementById('eRooms'),eConfigs:document.getElementById('eConfigs'),
+      eStat:document.getElementById('eStat'),eSig:document.getElementById('eSig'),eRem:document.getElementById('eRem'),
+      eRoomsInfo:document.getElementById('eRoomsInfo'),
+      editResaId:document.getElementById('editResaId'),editResaNom:document.getElementById('editResaNom'),
+      btnSaveEdit:document.getElementById('btnSaveEdit'),btnCancelResa:document.getElementById('btnCancelResa'),
       loader:document.getElementById('loader'),ldrTxt:document.getElementById('loaderTxt'),toast:document.getElementById('toast'),
     };
     this.buildRoomButtons();
@@ -524,8 +554,10 @@ const A = {
     this.d.btnAdd.onclick=()=>this.addResa();
     this.d.btnRes.onclick=()=>this.resetForm(true);
     this.d.btnPdf.onclick=()=>this.downloadPdf();
+    this.d.btnSaveEdit.onclick=()=>this.saveEdit();
+    this.d.btnCancelResa.onclick=()=>this.cancelResaFromModal();
     this.d.statRow.onclick=e=>{if(e.target.dataset.v){this.d.statRow.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');}};
-    this.d.rmBody.onclick=e=>{if(e.target.closest('.r-btn')&&!e.target.closest('.r-btn').disabled) this.toggleRoom(e.target.closest('.r-btn'));};
+    this.d.rmBody.onclick=e=>{if(e.target.closest('.r-btn')&&!e.target.closest('.r-btn').disabled)this.toggleRoom(e.target.closest('.r-btn'));};
     this.d.searchI.oninput=()=>this.renderList();
     document.getElementById('tabsBar').onclick=e=>{const b=e.target.closest('.tab-btn');if(b)this.switchTab(b.dataset.tab);};
     [this.d.fNom,this.d.fArr,this.d.fDep,this.d.fPd].forEach(el=>el.addEventListener('input',()=>this.updateSummary()));
@@ -536,7 +568,13 @@ const A = {
     this.d.fDep.value=U.addDays(U.todayISO(),1);
   },
 
-  // AUTH
+  // ✨ NOUVEAU : afficher note demi-pension
+  onPdChange(){
+    const pd=this.d.fPd.value;
+    this.d.dpNote.classList.toggle('show', pd==='Demi-pension');
+    this.updateSummary();
+  },
+
   signIn(){
     const client=google.accounts.oauth2.initTokenClient({
       client_id:CFG.clientId,scope:CFG.scopes,
@@ -571,16 +609,13 @@ const A = {
     if(id==='tab-list')this.loadList();
   },
 
-  // ── BOUTONS LOGEMENTS ──
   buildRoomButtons(){
     let html='';
     CFG.roomGroups.forEach(g=>{
       html+=`<div class="room-group"><div class="room-group-title">── ${g.label} ──</div><div class="room-grid" style="grid-template-columns:repeat(${g.cols},1fr);">`;
       g.rooms.forEach(r=>{
-        const id=typeof r==='string'?r:r.id;
-        const lbl=typeof r==='string'?r:r.lbl;
-        const rule=roomRule(id);
-        const capTxt=rule?`${rule.persBase}-${rule.persMax}p`:'';
+        const id=typeof r==='string'?r:r.id, lbl=typeof r==='string'?r:r.lbl;
+        const rule=roomRule(id), capTxt=rule?`${rule.persBase}-${rule.persMax}p`:'';
         html+=`<button type="button" class="r-btn" data-room="${id}">${lbl}<span class="cap-badge">${capTxt}</span></button>`;
       });
       html+=`</div></div>`;
@@ -590,38 +625,25 @@ const A = {
 
   toggleRoom(btn){
     const code=btn.dataset.room;
-    if(ST.selRooms.has(code)){
-      ST.selRooms.delete(code);
-      btn.classList.remove('on');
-      delete ST.roomConfigs[code];
-    } else {
-      ST.selRooms.add(code);
-      btn.classList.add('on');
+    if(ST.selRooms.has(code)){ST.selRooms.delete(code);btn.classList.remove('on');delete ST.roomConfigs[code];}
+    else{
+      ST.selRooms.add(code);btn.classList.add('on');
       const rule=roomRule(code);
-      // Config par défaut
-      ST.roomConfigs[code]={pers:rule?rule.persBase:1, twin:false, suppl:0};
+      ST.roomConfigs[code]={pers:rule?rule.persBase:1,twin:false,suppl:0};
     }
-    this.d.rmSel.textContent=ST.selRooms.size
-      ?'✓ Sélectionnés : '+[...ST.selRooms].sort().join(' · ')
-      :'Aucun logement sélectionné';
+    this.d.rmSel.textContent=ST.selRooms.size?'✓ Sélectionnés : '+[...ST.selRooms].sort().join(' · '):'Aucun logement sélectionné';
     this.buildRoomConfig();
     this.updateSummary();
   },
 
-  // ✨ MINI-FORMULAIRE par chambre
   buildRoomConfig(){
-    if(ST.selRooms.size===0){
-      this.d.roomConfig.classList.remove('show');
-      return;
-    }
+    if(ST.selRooms.size===0){this.d.roomConfig.classList.remove('show');return;}
     this.d.roomConfig.classList.add('show');
-    const nuits=U.nuits(this.d.fArr.value, this.d.fDep.value);
+    const nuits=U.nuits(this.d.fArr.value,this.d.fDep.value);
     let html='';
     [...ST.selRooms].sort().forEach(code=>{
-      const rule=roomRule(code);
-      if(!rule) return;
+      const rule=roomRule(code);if(!rule)return;
       const cfg=ST.roomConfigs[code]||{pers:rule.persBase,twin:false,suppl:0};
-
       html+=`<div class="rc-room" id="rc-${code}">
         <div class="rc-room-hdr">
           <span class="rc-room-name">${code}</span>
@@ -631,13 +653,9 @@ const A = {
         <div class="rc-fields">
           <div class="rc-field">
             <label>Nb de personnes</label>
-            <input type="number" min="1" max="${rule.persMax}" value="${cfg.pers}"
-              oninput="A.updateRoomConfig('${code}','pers',+this.value)"
-              id="rcp-${code}">
+            <input type="number" min="1" max="${rule.persMax}" value="${cfg.pers}" oninput="A.updateRoomConfig('${code}','pers',+this.value)" id="rcp-${code}">
             <span class="cap-warn" id="warn-${code}">⚠️ Maximum ${rule.persMax} personnes</span>
           </div>`;
-
-      // Boutons Twin/Double pour Spacieux, Classique, Paillote
       if(rule.canTwin){
         html+=`<div class="rc-field">
           <label>Configuration lit</label>
@@ -647,85 +665,61 @@ const A = {
           </div>
         </div>`;
       }
-
-      // Lits supplémentaires (Spacieux et Familiaux uniquement)
       if(rule.litSupplMax>0){
         const autoCalc=rule.label.includes('Spacieux');
         html+=`<div class="rc-field">
           <label>Lits / matelas suppl. <small style="color:var(--gy);font-weight:normal">(${U.fmtAr(rule.litSupplPrix)}/nuit)</small></label>
-          <select id="rcs-${code}" onchange="A.updateRoomConfig('${code}','suppl',+this.value)"${autoCalc?' disabled title="Calculé automatiquement selon le nombre de personnes"':''}>`;
+          <select id="rcs-${code}" onchange="A.updateRoomConfig('${code}','suppl',+this.value)"${autoCalc?' disabled title="Calculé auto selon nb personnes"':''}>`;
         for(let i=0;i<=rule.litSupplMax;i++){
-          const extra = i>0 ? ` (+${U.fmtAr(i*rule.litSupplPrix)}/nuit)` : '';
-          html+=`<option value="${i}" ${cfg.suppl===i?'selected':''}>${i===0?'Aucun':i+' lit'+( i>1?'s':'')+extra}</option>`;
+          const extra=i>0?` (+${U.fmtAr(i*rule.litSupplPrix)}/nuit)`:'';
+          html+=`<option value="${i}" ${cfg.suppl===i?'selected':''}>${i===0?'Aucun':i+' lit'+(i>1?'s':'')+extra}</option>`;
         }
         html+=`</select>${autoCalc?'<small style="color:var(--gy)">Auto selon nb pers.</small>':''}</div>`;
       }
-
-      html+=`</div>`;
-
-      // Récap de la chambre
-      html+=`<div class="rc-recap" id="rcr-${code}">${this.getRoomRecap(code,cfg,nuits)}</div>
-      </div>`;
+      html+=`</div><div class="rc-recap" id="rcr-${code}">${this.getRoomRecap(code,cfg,nuits)}</div></div>`;
     });
-
     this.d.rcRooms.innerHTML=html;
     this.updateGlobalRecap();
   },
 
-  getRoomRecap(code, cfg, nuits){
-    const rule=roomRule(code); if(!rule) return '';
-    const configStr=U.configSummary(code,cfg);
-    const cout=rule.prix*nuits;
-    const suppl=U.litSupplCost(code,cfg,nuits);
-    const total=cout+suppl;
-    let txt=`<strong>${code}</strong> — ${configStr} — ${nuits} nuit${nuits>1?'s':''}<br>`;
+  getRoomRecap(code,cfg,nuits){
+    const rule=roomRule(code);if(!rule)return'';
+    const cout=rule.prix*nuits, suppl=U.litSupplCost(code,cfg,nuits), total=cout+suppl;
+    let txt=`<strong>${code}</strong> — ${U.configSummary(code,cfg)} — ${nuits} nuit${nuits>1?'s':''}<br>`;
     txt+=`Hébergement : ${U.fmtAr(rule.prix)} × ${nuits} = <strong>${U.fmtAr(cout)}</strong>`;
-    if(suppl>0) txt+=` &nbsp;+&nbsp; lit suppl. : <strong>${U.fmtAr(suppl)}</strong>`;
-    txt+=` → Total chambre : <strong style="color:var(--bx)">${U.fmtAr(total)}</strong>`;
+    if(suppl>0)txt+=` + lit suppl. : <strong>${U.fmtAr(suppl)}</strong>`;
+    txt+=` → <strong style="color:var(--bx)">${U.fmtAr(total)}</strong>`;
     return txt;
   },
 
-  updateRoomConfig(code, field, val){
-    if(!ST.roomConfigs[code]) ST.roomConfigs[code]={};
+  updateRoomConfig(code,field,val){
+    if(!ST.roomConfigs[code])ST.roomConfigs[code]={};
     const rule=roomRule(code);
     if(field==='pers'){
       const warn=document.getElementById('warn-'+code);
       if(val>rule.persMax){
-        if(warn) warn.classList.add('show');
-        // bloquer
+        if(warn)warn.classList.add('show');
         const inp=document.getElementById('rcp-'+code);
         if(inp){inp.value=rule.persMax;val=rule.persMax;}
         this.toast(`⚠️ ${code} : maximum ${rule.persMax} personnes !`,true);
-      } else {
-        if(warn) warn.classList.remove('show');
-      }
+      } else {if(warn)warn.classList.remove('show');}
       ST.roomConfigs[code].pers=val;
-      // Auto-calculer lits supplémentaires pour Spacieux
       if(rule.label.includes('Spacieux')){
-        const supplAuto=Math.max(0,val-2); // 1 pers=0 suppl, 2=0 (ou twin), 3=1 suppl, 4=2 suppl
+        const supplAuto=Math.max(0,val-2);
         ST.roomConfigs[code].suppl=Math.min(supplAuto,rule.litSupplMax);
-        // Si twin + 2 pers → suppl=1 mais gratuit
         const sel=document.getElementById('rcs-'+code);
-        if(sel) sel.value=ST.roomConfigs[code].suppl;
+        if(sel)sel.value=ST.roomConfigs[code].suppl;
       }
-    } else if(field==='suppl'){
-      ST.roomConfigs[code].suppl=val;
-    }
+    } else if(field==='suppl'){ST.roomConfigs[code].suppl=val;}
     this.refreshRoomRecap(code);
     this.updateSummary();
   },
 
-  setTwin(code, isTwin){
-    if(!ST.roomConfigs[code]) ST.roomConfigs[code]={};
+  setTwin(code,isTwin){
+    if(!ST.roomConfigs[code])ST.roomConfigs[code]={};
     ST.roomConfigs[code].twin=isTwin;
-    // Refresh boutons
     const rc=document.getElementById('rc-'+code);
-    if(rc){
-      rc.querySelectorAll('.cfg-btn').forEach(b=>{
-        const wantTwin=b.textContent.includes('Twin');
-        b.classList.toggle('on',(isTwin&&wantTwin)||(!isTwin&&!wantTwin));
-      });
-    }
+    if(rc)rc.querySelectorAll('.cfg-btn').forEach(b=>{const wt=b.textContent.includes('Twin');b.classList.toggle('on',(isTwin&&wt)||(!isTwin&&!wt));});
     this.refreshRoomRecap(code);
     this.updateSummary();
   },
@@ -733,7 +727,7 @@ const A = {
   refreshRoomRecap(code){
     const nuits=U.nuits(this.d.fArr.value,this.d.fDep.value);
     const el=document.getElementById('rcr-'+code);
-    if(el) el.innerHTML=this.getRoomRecap(code,ST.roomConfigs[code]||{pers:1,twin:false,suppl:0},nuits);
+    if(el)el.innerHTML=this.getRoomRecap(code,ST.roomConfigs[code]||{pers:1,twin:false,suppl:0},nuits);
     this.updateGlobalRecap();
   },
 
@@ -742,54 +736,54 @@ const A = {
     if(!ST.selRooms.size||nuits<=0){this.d.rcRecap.style.display='none';return;}
     let totalHeb=0,totalSuppl=0,totalPers=0;
     [...ST.selRooms].forEach(code=>{
-      const rule=roomRule(code); if(!rule) return;
+      const rule=roomRule(code);if(!rule)return;
       const cfg=ST.roomConfigs[code]||{pers:rule.persBase,twin:false,suppl:0};
       totalHeb+=rule.prix*nuits;
       totalSuppl+=U.litSupplCost(code,cfg,nuits);
       totalPers+=cfg.pers;
     });
-    const pd=this.d.fPd.value, pdP=CFG.pdPrices[pd]||0;
-    const totalPd=pdP*totalPers*nuits;
+    const pdInfo=U.getPdInfo(this.d.fPd.value);
+    // ✨ CORRIGÉ : utiliser pdInfo.total pour le calcul global
+    const totalPd=pdInfo?pdInfo.total*totalPers*nuits:0;
     const grand=totalHeb+totalSuppl+totalPd;
     this.d.rcRecap.style.display='block';
-    this.d.rcRecap.innerHTML=`
-      <strong>📊 Récapitulatif — ${ST.selRooms.size} logement${ST.selRooms.size>1?'s':''} · ${totalPers} pers. · ${nuits} nuit${nuits>1?'s':''}</strong><br>
-      Hébergement : ${U.fmtAr(totalHeb)}
-      ${totalSuppl>0?` &nbsp;+&nbsp; Lits suppl. : ${U.fmtAr(totalSuppl)}`:''}
-      ${totalPd>0?` &nbsp;+&nbsp; Petit-déj : ${U.fmtAr(totalPd)}`:''}
-      &nbsp;→&nbsp; <strong style="font-size:15px;color:var(--bx)">TOTAL : ${U.fmtAr(grand)}</strong>`;
+    let recap=`<strong>📊 Récapitulatif — ${ST.selRooms.size} logement${ST.selRooms.size>1?'s':''} · ${totalPers} pers. · ${nuits} nuit${nuits>1?'s':''}</strong><br>`;
+    recap+=`Hébergement : ${U.fmtAr(totalHeb)}`;
+    if(totalSuppl>0)recap+=` + Lits suppl. : ${U.fmtAr(totalSuppl)}`;
+    if(totalPd>0)recap+=` + ${pdInfo.label} : ${U.fmtAr(totalPd)}`;
+    // ✨ Pour demi-pension : décomposer dans le récap
+    if(pdInfo&&pdInfo.diner>0){
+      recap+=`<br><small style="color:var(--gy)">↳ dont PD : ${U.fmtAr(pdInfo.pd*totalPers*nuits)} + Dîner : ${U.fmtAr(pdInfo.diner*totalPers*nuits)}</small>`;
+    }
+    recap+=` → <strong style="font-size:15px;color:var(--bx)">TOTAL : ${U.fmtAr(grand)}</strong>`;
+    this.d.rcRecap.innerHTML=recap;
   },
 
-  // ── FORMULAIRE ──
   getStatus(){return this.d.statRow.querySelector('.s-btn.on')?.dataset.v||'CONFIRMÉ';},
   getForm(){
-    // Construire la chaîne config : "L1(2p,Twin)|B3(2p,Double)"
     const configs=[...ST.selRooms].sort().map(code=>{
-      const cfg=ST.roomConfigs[code]||{pers:1,twin:false,suppl:0};
-      const rule=roomRule(code);
+      const cfg=ST.roomConfigs[code]||{pers:1,twin:false,suppl:0}, rule=roomRule(code);
       let s=`${code}(${cfg.pers}p`;
-      if(rule&&rule.canTwin) s+=cfg.twin?',Twin':',Double';
-      if(cfg.suppl>0) s+=`,+${cfg.suppl}lit`;
-      s+=')';
-      return s;
+      if(rule&&rule.canTwin)s+=cfg.twin?',Twin':',Double';
+      if(cfg.suppl>0)s+=`,+${cfg.suppl}lit`;
+      return s+')';
     }).join(' | ');
     const totalPers=[...ST.selRooms].reduce((s,c)=>{const cfg=ST.roomConfigs[c];return s+(cfg?cfg.pers:0);},0);
-    return {
-      nom:this.d.fNom.value.trim(),
-      contact:this.d.fContact.value.trim(),
+    return{
+      nom:this.d.fNom.value.trim(),contact:this.d.fContact.value.trim(),
       arr:this.d.fArr.value,dep:this.d.fDep.value,
       pd:this.d.fPd.value,stat:this.getStatus(),
       rem:this.d.fRem.value.trim(),sig:this.d.fSig.value.trim()||'UF',
-      rooms:[...ST.selRooms].sort().join('-'),
-      configs, totalPers,
+      rooms:[...ST.selRooms].sort().join('-'),configs,totalPers,
     };
   },
   resetForm(doCheck=true){
     [this.d.fNom,this.d.fContact,this.d.fRem].forEach(e=>e.value='');
     this.d.fPd.value='';this.d.fSig.value='UF';
+    this.d.dpNote.classList.remove('show');
     this.d.statRow.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on'));
     this.d.statRow.querySelector('[data-v="CONFIRMÉ"]').classList.add('on');
-    ST.selRooms.clear(); ST.roomConfigs={};
+    ST.selRooms.clear();ST.roomConfigs={};
     this.d.rmBody.querySelectorAll('.r-btn').forEach(b=>b.classList.remove('on'));
     this.d.rmSel.textContent='Aucun logement sélectionné';
     this.d.roomConfig.classList.remove('show');
@@ -801,8 +795,7 @@ const A = {
     if(doCheck)this.checkAvail();
   },
   onDateChange(){
-    this.updateSummary();
-    this.buildRoomConfig(); // recalculer les récaps avec les nouvelles nuits
+    this.updateSummary();this.buildRoomConfig();
     clearTimeout(ST.timerDeb);
     this.d.cardRm.classList.add('loading');
     ST.timerDeb=setTimeout(()=>this.checkAvail(),500);
@@ -814,14 +807,15 @@ const A = {
     const rooms=[...ST.selRooms].sort().join(', ')||'—';
     let nt=`<span class="nuits-big">${n}</span> nuit${n>1?'s':''}`;
     if(n<=0&&f.arr&&f.dep)nt=`<span class="err-text">Dates invalides</span>`;
-    this.d.sumTxt.innerHTML=`<strong>${f.nom||'—'}</strong>${f.contact?` &nbsp;·&nbsp; 📞 ${f.contact}`:''} &nbsp;·&nbsp; ${rooms}<br>
-      ${f.arr?U.fmtFRlong(f.arr):'—'} → ${f.dep?U.fmtFRlong(f.dep):'—'} &nbsp;·&nbsp; ${nt}
-      ${f.totalPers?` &nbsp;·&nbsp; ${f.totalPers} pers. au total`:''}
-      ${f.pd?'<br>🍳 '+f.pd:''}`;
+    const pdInfo=U.getPdInfo(f.pd);
+    const pdLabel=pdInfo?`🍽️ ${pdInfo.label}${pdInfo.diner>0?' (PD + Dîner)':''}`:''
+    this.d.sumTxt.innerHTML=`<strong>${f.nom||'—'}</strong>${f.contact?` · 📞 ${f.contact}`:''} · ${rooms}<br>
+      ${f.arr?U.fmtFRlong(f.arr):'—'} → ${f.dep?U.fmtFRlong(f.dep):'—'} · ${nt}
+      ${f.totalPers?` · ${f.totalPers} pers.`:''}
+      ${pdLabel?'<br>'+pdLabel:''}`;
     this.updateGlobalRecap();
   },
 
-  // ── DOUBLON ──
   checkDoublon(){
     const nom=this.d.fNom.value.trim().toLowerCase();
     if(!nom||nom.length<3||!ST.resas.length){this.d.altDbl.classList.remove('show');return;}
@@ -832,7 +826,6 @@ const A = {
     this.d.altDbl.classList.add('show');
   },
 
-  // ── DISPONIBILITÉ ──
   async checkAvail(){
     const f=this.getForm(),n=U.nuits(f.arr,f.dep);
     if(!f.arr||!f.dep||n<=0){ST.avail={};this.updateRoomsUI();this.d.cardRm.classList.remove('loading');return;}
@@ -877,7 +870,6 @@ const A = {
     this.d.rmSel.textContent=ST.selRooms.size?'✓ Sélectionnés : '+[...ST.selRooms].sort().join(' · '):'Aucun logement sélectionné';
   },
 
-  // ── TROUVER LIGNE VIDE ──
   async findNextRow(){
     const res=await API.get(`${CFG.feuilleResa}!C${CFG.dataRow}:C2000`);
     const rows=res.values||[];
@@ -886,14 +878,12 @@ const A = {
     return CFG.dataRow+lastFilled+1;
   },
 
-  // ── ENREGISTRER ──
   async addResa(){
     const f=this.getForm(),n=U.nuits(f.arr,f.dep);
-    if(!f.nom)           return this.toast('⚠️ Saisis le nom du client',true);
-    if(!f.arr||!f.dep)   return this.toast('⚠️ Saisis les dates',true);
-    if(n<=0)             return this.toast('⚠️ Dates invalides',true);
+    if(!f.nom)return this.toast('⚠️ Saisis le nom du client',true);
+    if(!f.arr||!f.dep)return this.toast('⚠️ Saisis les dates',true);
+    if(n<=0)return this.toast('⚠️ Dates invalides',true);
     if(!ST.selRooms.size)return this.toast('⚠️ Sélectionne au moins un logement',true);
-    // Vérif conflit
     for(const room of ST.selRooms){
       for(let d=new Date(f.arr+'T00:00:00');d<new Date(f.dep+'T00:00:00');d.setDate(d.getDate()+1)){
         const key=d.toISOString().split('T')[0];
@@ -906,22 +896,16 @@ const A = {
       const id=nextRow-CFG.dataRow+1;
       const t=new Date();
       const todayFR=`${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`;
-
-      // Colonnes : A=N°, B=Date, C=Nom, D=Contact, E=Logements, F=Config, G=Arrivée, H=Départ, I=Nuits, J=Pers.total, K=PD, L=Statut, M=Remarques, N=Signature
       await API.update(`${CFG.feuilleResa}!A${nextRow}:N${nextRow}`,[[
-        id, todayFR, f.nom, f.contact,
-        f.rooms, f.configs,
-        U.fmtFR(f.arr), U.fmtFR(f.dep),
-        n, f.totalPers||'',
-        f.pd, f.stat, f.rem, f.sig
+        id,todayFR,f.nom,f.contact,f.rooms,f.configs,
+        U.fmtFR(f.arr),U.fmtFR(f.dep),n,f.totalPers||'',
+        f.pd,f.stat,f.rem,f.sig
       ]]);
-
       this.loader('Mise à jour planning...');
       const meta=await API.sheetMeta();
       const{vals,fmts}=this.buildPlanningUpdate(f.nom,f.arr,f.dep,meta);
       if(vals.length)await API.batchUpdateValues(vals);
       if(fmts.length)await API.batchUpdateFmt(fmts);
-
       this.loaderOff();
       this.toast(`✅ Réservation N°${id} enregistrée — ${f.nom}`);
       const rowData={id,nom:f.nom,contact:f.contact,rooms:f.rooms,configs:f.configs,
@@ -933,7 +917,6 @@ const A = {
     }catch(err){this.loaderOff();this.toast('❌ '+err.message,true);console.error(err);}
   },
 
-  // ── PLANNING ──
   buildPlanningUpdate(nom,arr,dep,meta){
     const shortName=nom.substring(0,16),vals=[],fmts=[];
     const ds=new Date(arr+'T00:00:00'),de=new Date(dep+'T00:00:00');
@@ -946,11 +929,7 @@ const A = {
         const sid=meta[mois];
         if(sid!==undefined)fmts.push({repeatCell:{
           range:{sheetId:sid,startRowIndex:rr-1,endRowIndex:rr,startColumnIndex:ci,endColumnIndex:ci+1},
-          cell:{userEnteredFormat:{
-            backgroundColor:{red:.42,green:.10,blue:.16},
-            textFormat:{foregroundColor:{red:1,green:1,blue:1},bold:true,fontSize:9},
-            horizontalAlignment:'CENTER',verticalAlignment:'MIDDLE',wrapStrategy:'WRAP'
-          }},
+          cell:{userEnteredFormat:{backgroundColor:{red:.42,green:.10,blue:.16},textFormat:{foregroundColor:{red:1,green:1,blue:1},bold:true,fontSize:9},horizontalAlignment:'CENTER',verticalAlignment:'MIDDLE',wrapStrategy:'WRAP'}},
           fields:'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)'
         }});
       }
@@ -958,17 +937,15 @@ const A = {
     return{vals,fmts};
   },
 
-  // ── LISTE ──
   async loadList(){
     if(!ST.token)return;
     try{
       const r=await API.get(`${CFG.feuilleResa}!A${CFG.dataRow}:N2000`);
       ST.resas=(r.values||[]).filter(row=>row[2]&&row[2].trim()).map(row=>({
         id:row[0]||'',date:row[1]||'',nom:row[2]||'',contact:row[3]||'',
-        rooms:row[4]||'',configs:row[5]||'',
-        arr:row[6]||'',dep:row[7]||'',nuits:row[8]||'',pers:row[9]||'',
-        pd:row[10]||'',stat:row[11]||'',rem:row[12]||'',sig:row[13]||'',
-        roomConfigs:null, // sera reconstruit depuis configs si nécessaire
+        rooms:row[4]||'',configs:row[5]||'',arr:row[6]||'',dep:row[7]||'',
+        nuits:row[8]||'',pers:row[9]||'',pd:row[10]||'',stat:row[11]||'',rem:row[12]||'',sig:row[13]||'',
+        roomConfigs:null,
       }));
       this.renderList();
     }catch(e){console.error('loadList',e);}
@@ -980,34 +957,37 @@ const A = {
     if(!list.length){this.d.lBody.innerHTML=`<tr><td colspan="11" class="empty-row">${q?'Aucun résultat':'Aucune réservation'}</td></tr>`;return;}
     const bc=s=>s==='CONFIRMÉ'?'b-ok':s==='OPTION'?'b-opt':s==='TERMINÉ'?'b-ter':'b-ann';
     this.d.lBody.innerHTML=list.map(r=>`
-      <tr>
+      <tr id="row-${r.id}">
         <td><strong>#${r.id}</strong></td>
         <td>${U.esc(r.nom)}</td>
         <td style="font-size:11px">${U.esc(r.contact)||'—'}</td>
         <td><strong>${U.esc(r.rooms)}</strong></td>
         <td>${U.esc(r.arr)}</td><td>${U.esc(r.dep)}</td>
         <td style="text-align:center">${U.esc(r.nuits)}</td>
-        <td style="font-size:11px;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${U.esc(r.configs)}">${U.esc(r.configs)||'—'}</td>
+        <td style="font-size:11px;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${U.esc(r.configs)}">${U.esc(r.configs)||'—'}</td>
         <td style="font-size:11px">${U.esc(r.pd)||'—'}</td>
         <td><span class="badge ${bc(r.stat)}">${U.esc(r.stat)}</span></td>
-        <td><button class="btn btn-bx btn-xs" data-id="${r.id}" onclick="A.showInvById(this.dataset.id)">📄</button></td>
+        <td>
+          <div class="actions-cell">
+            <button class="btn btn-bx btn-xs" data-id="${r.id}" onclick="A.showInvById(this.dataset.id)" title="Facture">📄</button>
+            <button class="btn btn-xs btn-edit" data-id="${r.id}" onclick="A.openEdit(this.dataset.id)" title="Modifier">✏️</button>
+            ${r.stat!=='ANNULÉ'?`<button class="btn btn-xs btn-cancel-resa" data-id="${r.id}" onclick="A.quickCancel(this.dataset.id)" title="Annuler la réservation">✕</button>`:''}
+          </div>
+        </td>
       </tr>`).join('');
   },
 
-  // ── FACTURE ──
   parseConfigs(configStr){
-    // Parse "L1(2p,Twin,+1lit) | B3(2p,Double)" → { L1:{pers:2,twin:true,suppl:1}, B3:{pers:2,twin:false,suppl:0} }
-    const result={};
-    if(!configStr) return result;
+    const result={};if(!configStr)return result;
     configStr.split('|').forEach(part=>{
       part=part.trim();
-      const m=part.match(/^(\w+)\((.+)\)$/);
-      if(!m) return;
-      const code=m[1], content=m[2];
-      const pers=parseInt((content.match(/(\d+)p/)||[])[1])||1;
-      const twin=content.includes('Twin');
-      const suppl=parseInt((content.match(/\+(\d+)lit/)||[])[1])||0;
-      result[code]={pers,twin,suppl};
+      const m=part.match(/^(\w+)\((.+)\)$/);if(!m)return;
+      const code=m[1],content=m[2];
+      result[code]={
+        pers:parseInt((content.match(/(\d+)p/)||[])[1])||1,
+        twin:content.includes('Twin'),
+        suppl:parseInt((content.match(/\+(\d+)lit/)||[])[1])||0,
+      };
     });
     return result;
   },
@@ -1015,48 +995,65 @@ const A = {
   buildInvData(row){
     const nuits=parseInt(row.nuits)||1;
     const rooms=(row.rooms||'').split('-').filter(Boolean);
-    // Si roomConfigs est dispo (réservation juste faite), l'utiliser ; sinon parser configs
     const configs=row.roomConfigs||this.parseConfigs(row.configs);
-
     let hebLines=[],hebTotal=0,supplLines=[],supplTotal=0,totalPers=0;
     rooms.forEach(code=>{
-      const rule=roomRule(code); if(!rule) return;
+      const rule=roomRule(code);if(!rule)return;
       const cfg=configs[code]||{pers:rule.persBase,twin:false,suppl:0};
       totalPers+=cfg.pers;
-
-      // Ligne hébergement
-      const cout=rule.prix*nuits; hebTotal+=cout;
-      const configLabel=U.configSummary(code,cfg);
-      hebLines.push({code,label:rule.label,configLabel,prix:rule.prix,nuits,total:cout});
-
-      // Ligne supplément
+      const cout=rule.prix*nuits;hebTotal+=cout;
+      hebLines.push({code,label:rule.label,configLabel:U.configSummary(code,cfg),prix:rule.prix,nuits,total:cout});
       const s=U.litSupplCost(code,cfg,nuits);
       if(s>0){supplTotal+=s;supplLines.push({code,nb:cfg.suppl,prix:rule.litSupplPrix,nuits,total:s});}
     });
 
-    const pd=row.pd,pdP=CFG.pdPrices[pd]||0;
+    // ✨ CORRIGÉ : demi-pension décomposée en 2 lignes
+    const pdInfo=U.getPdInfo(row.pd);
     let restoLines=[],restoTotal=0;
-    if(pdP>0){const t=pdP*totalPers*nuits;restoTotal=t;restoLines.push({label:U.esc(pd)+` × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,total:t});}
+    if(pdInfo&&pdInfo.total>0){
+      if(pdInfo.diner>0){
+        // Demi-pension : 2 lignes séparées
+        const tPd=pdInfo.pd*totalPers*nuits;
+        const tDiner=pdInfo.diner*totalPers*nuits;
+        restoLines.push({
+          label:`Petit-déjeuner Continental × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,
+          prix:pdInfo.pd, total:tPd
+        });
+        restoLines.push({
+          label:`Dîner menu complet × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,
+          prix:pdInfo.diner, total:tDiner
+        });
+        restoTotal=tPd+tDiner;
+      } else {
+        // PD simple : 1 ligne
+        const t=pdInfo.total*totalPers*nuits;
+        restoLines.push({label:`${pdInfo.label} × ${totalPers} pers. × ${nuits} nuit${nuits>1?'s':''}`,prix:pdInfo.total,total:t});
+        restoTotal=t;
+      }
+    }
 
     return{row,nuits,totalPers,rooms,hebLines,hebTotal,supplLines,supplTotal,restoLines,restoTotal,grand:hebTotal+supplTotal+restoTotal};
   },
 
   showInv(row){
-    const d=this.buildInvData(row); ST.invData=d;
+    const d=this.buildInvData(row);ST.invData=d;
     const hebHtml=d.hebLines.map(l=>`
       <div class="inv-line">
-        <span class="inv-ll"><strong>${l.code}</strong> — ${l.label} &nbsp;<em style="color:var(--gy);font-size:12px">(${l.configLabel})</em></span>
+        <span class="inv-ll"><strong>${l.code}</strong> — ${l.label} <em style="color:var(--gy);font-size:12px">(${l.configLabel})</em></span>
         <span class="inv-la">${U.fmtAr(l.total)}</span>
       </div>
       <div class="inv-sub">${U.fmtAr(l.prix)} × ${l.nuits} nuit${l.nuits>1?'s':''}</div>`).join('');
-
     const supplHtml=d.supplLines.length
       ?`<hr class="inv-sep"><div class="inv-sec">Suppléments lits</div>`+
         d.supplLines.map(l=>`<div class="inv-line"><span class="inv-ll">${l.code} — ${l.nb} lit${l.nb>1?'s':''} supplémentaire${l.nb>1?'s':''} <small style="color:var(--gy)">(${U.fmtAr(l.prix)}/lit/nuit)</small></span><span class="inv-la">${U.fmtAr(l.total)}</span></div>`).join('')
       :'';
-
     const resHtml=d.restoLines.length
-      ?d.restoLines.map(l=>`<div class="inv-line"><span class="inv-ll">${l.label}</span><span class="inv-la">${U.fmtAr(l.total)}</span></div>`).join('')
+      ?d.restoLines.map(l=>`
+          <div class="inv-line">
+            <span class="inv-ll">${l.label}</span>
+            <span class="inv-la">${U.fmtAr(l.total)}</span>
+          </div>
+          <div class="inv-sub">${U.fmtAr(l.prix)} / pers. / nuit</div>`).join('')
       :`<p style="font-size:12px;color:#aaa;font-style:italic">Aucun petit-déjeuner précisé</p>`;
 
     this.d.invCnt.innerHTML=`
@@ -1079,7 +1076,7 @@ const A = {
       <div class="inv-sec">Hébergement</div>${hebHtml}
       ${supplHtml}
       <hr class="inv-sep">
-      <div class="inv-sec">Restauration</div>${resHtml}
+      <div class="inv-sec">Restauration${d.row.pd==='Demi-pension'?' — Demi-pension (PD + Dîner)':''}</div>${resHtml}
       <div class="inv-total"><span>TOTAL GÉNÉRAL</span><span>${U.fmtAr(d.grand)}</span></div>
       <div class="inv-foot">
         Paiement sur place le jour du départ &nbsp;·&nbsp; Espèces / Virement bancaire / Mobile Money<br>
@@ -1090,16 +1087,215 @@ const A = {
     this.d.invMod.classList.add('show');
   },
 
+  // ══════════════════════════════════════════════
+  // MODIFICATION / ANNULATION D'UNE RÉSERVATION
+  // ══════════════════════════════════════════════
+
+  // Ouvrir la modale d'édition pré-remplie
+  openEdit(id){
+    const r=ST.resas.find(r=>String(r.id)===String(id));
+    if(!r){this.toast('Réservation introuvable',true);return;}
+    ST.editingResa=r; // stocker la résa en cours d'édition
+
+    // Remplir les champs
+    this.d.editResaId.textContent=`#${r.id}`;
+    this.d.editResaNom.textContent=r.nom;
+    this.d.eNom.value=r.nom;
+    this.d.eContact.value=r.contact||'';
+    // Convertir DD/MM/YYYY → YYYY-MM-DD pour les inputs date
+    this.d.eArr.value=U.frToISO(r.arr);
+    this.d.eDep.value=U.frToISO(r.dep);
+    this.d.ePers.value=r.pers||'';
+    this.d.ePd.value=r.pd||'';
+    this.d.eRooms.value=r.rooms||'';
+    this.d.eConfigs.value=r.configs||'';
+    this.d.eStat.value=r.stat||'CONFIRMÉ';
+    this.d.eSig.value=r.sig||'UF';
+    this.d.eRem.value=r.rem||'';
+    // Info sur les logements actuels
+    this.d.eRoomsInfo.innerHTML=`<strong>Actuellement :</strong> ${r.rooms} — ${r.arr} au ${r.dep} (${r.nuits} nuit${Number(r.nuits)>1?'s':''})`;
+    this.d.editMod.classList.add('show');
+  },
+
+  closeEdit(){
+    this.d.editMod.classList.remove('show');
+    ST.editingResa=null;
+  },
+
+  // Sauvegarder les modifications
+  async saveEdit(){
+    const r=ST.editingResa; if(!r){this.toast('Erreur : aucune réservation en édition',true);return;}
+    const newNom     = this.d.eNom.value.trim();
+    const newContact = this.d.eContact.value.trim();
+    const newArr     = this.d.eArr.value;
+    const newDep     = this.d.eDep.value;
+    const newPers    = this.d.ePers.value;
+    const newPd      = this.d.ePd.value;
+    const newRooms   = this.d.eRooms.value.trim().toUpperCase().replace(/\s/g,'');
+    const newConfigs = this.d.eConfigs.value.trim();
+    const newStat    = this.d.eStat.value;
+    const newSig     = this.d.eSig.value.trim()||'UF';
+    const newRem     = this.d.eRem.value.trim();
+
+    if(!newNom)  return this.toast('⚠️ Le nom est obligatoire',true);
+    if(!newArr||!newDep) return this.toast('⚠️ Les dates sont obligatoires',true);
+    const newNuits=U.nuits(newArr,newDep);
+    if(newNuits<=0) return this.toast('⚠️ Dates invalides',true);
+    if(!newRooms) return this.toast('⚠️ Logement(s) obligatoire',true);
+
+    // Détecter si dates ou logements ont changé → besoin de MAJ planning
+    const oldArr=U.frToISO(r.arr), oldDep=U.frToISO(r.dep), oldRooms=r.rooms||'';
+    const datesChanged  = (newArr!==oldArr)||(newDep!==oldDep);
+    const roomsChanged  = newRooms!==oldRooms.toUpperCase().replace(/\s/g,'');
+    const needsPlanningUpdate = datesChanged||roomsChanged;
+
+    // Trouver la ligne réelle dans le Sheet (id = nextRow - dataRow + 1)
+    // → la ligne dans le sheet est dataRow + id - 1
+    const sheetRow = CFG.dataRow + Number(r.id) - 1;
+
+    this.loader('Mise à jour de la réservation...');
+    try{
+      // 1. Mettre à jour la ligne dans Réservations
+      await API.update(
+        `${CFG.feuilleResa}!A${sheetRow}:N${sheetRow}`,
+        [[r.id, r.date, newNom, newContact,
+          newRooms, newConfigs,
+          U.fmtFR(newArr), U.fmtFR(newDep),
+          newNuits, newPers||r.pers||'',
+          newPd, newStat, newRem, newSig]]
+      );
+
+      // 2. Si dates/logements changés → effacer l'ancien planning + écrire le nouveau
+      if(needsPlanningUpdate){
+        this.loader('Mise à jour du planning mensuel...');
+        const meta=await API.sheetMeta();
+        const oldRoomList=(oldRooms).split('-').filter(Boolean);
+        const newRoomList=newRooms.split('-').filter(Boolean);
+
+        // Effacer l'ancien planning
+        const clearVals=[], clearFmts=[];
+        oldRoomList.forEach(room=>{
+          const rr=CFG.roomRows[room]; if(!rr)return;
+          const ds=new Date(oldArr+'T00:00:00'), de=new Date(oldDep+'T00:00:00');
+          for(let d=new Date(ds);d<de;d.setDate(d.getDate()+1)){
+            const mois=CFG.mois[d.getMonth()], jour=d.getDate();
+            const ci=CFG.colJour1+(jour-1), col=U.colLetter(ci);
+            clearVals.push({range:`${mois}!${col}${rr}`,values:[['']]});
+            const sid=meta[mois];
+            if(sid!==undefined) clearFmts.push({repeatCell:{
+              range:{sheetId:sid,startRowIndex:rr-1,endRowIndex:rr,startColumnIndex:ci,endColumnIndex:ci+1},
+              cell:{userEnteredFormat:{
+                backgroundColor:{red:1,green:1,blue:1},
+                textFormat:{foregroundColor:{red:0,green:0,blue:0},bold:false,fontSize:9},
+              }},
+              fields:'userEnteredFormat(backgroundColor,textFormat)'
+            }});
+          }
+        });
+        if(clearVals.length) await API.batchUpdateValues(clearVals);
+        if(clearFmts.length) await API.batchUpdateFmt(clearFmts);
+
+        // Écrire le nouveau planning
+        const shortName=newNom.substring(0,16);
+        const writeVals=[], writeFmts=[];
+        newRoomList.forEach(room=>{
+          const rr=CFG.roomRows[room]; if(!rr)return;
+          const ds=new Date(newArr+'T00:00:00'), de=new Date(newDep+'T00:00:00');
+          for(let d=new Date(ds);d<de;d.setDate(d.getDate()+1)){
+            const mois=CFG.mois[d.getMonth()], jour=d.getDate();
+            const ci=CFG.colJour1+(jour-1), col=U.colLetter(ci);
+            writeVals.push({range:`${mois}!${col}${rr}`,values:[[shortName]]});
+            const sid=meta[mois];
+            if(sid!==undefined) writeFmts.push({repeatCell:{
+              range:{sheetId:sid,startRowIndex:rr-1,endRowIndex:rr,startColumnIndex:ci,endColumnIndex:ci+1},
+              cell:{userEnteredFormat:{
+                backgroundColor:{red:.42,green:.10,blue:.16},
+                textFormat:{foregroundColor:{red:1,green:1,blue:1},bold:true,fontSize:9},
+                horizontalAlignment:'CENTER',verticalAlignment:'MIDDLE',wrapStrategy:'WRAP'
+              }},
+              fields:'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)'
+            }});
+          }
+        });
+        if(writeVals.length) await API.batchUpdateValues(writeVals);
+        if(writeFmts.length) await API.batchUpdateFmt(writeFmts);
+      }
+
+      this.loaderOff();
+      this.closeEdit();
+      this.toast(`✅ Réservation #${r.id} modifiée — ${newNom}`);
+      // Recharger la liste
+      ST.resas=[];
+      await this.loadList();
+
+    }catch(err){
+      this.loaderOff();
+      this.toast('❌ '+err.message,true);
+      console.error(err);
+    }
+  },
+
+  // Annulation rapide depuis le bouton ✕ dans le tableau (sans ouvrir la modale)
+  async quickCancel(id){
+    const r=ST.resas.find(r=>String(r.id)===String(id)); if(!r)return;
+    if(!confirm(`Annuler la réservation #${r.id} — ${r.nom} ?\n(Le planning mensuel sera effacé)`))return;
+    const sheetRow=CFG.dataRow+Number(r.id)-1;
+    this.loader('Annulation en cours...');
+    try{
+      // Changer le statut en ANNULÉ
+      await API.update(
+        `${CFG.feuilleResa}!L${sheetRow}`,
+        [['ANNULÉ']]
+      );
+      // Effacer le planning
+      const meta=await API.sheetMeta();
+      const oldArr=U.frToISO(r.arr), oldDep=U.frToISO(r.dep);
+      const roomList=(r.rooms||'').split('-').filter(Boolean);
+      const clearVals=[], clearFmts=[];
+      roomList.forEach(room=>{
+        const rr=CFG.roomRows[room]; if(!rr)return;
+        const ds=new Date(oldArr+'T00:00:00'), de=new Date(oldDep+'T00:00:00');
+        for(let d=new Date(ds);d<de;d.setDate(d.getDate()+1)){
+          const mois=CFG.mois[d.getMonth()], jour=d.getDate();
+          const ci=CFG.colJour1+(jour-1), col=U.colLetter(ci);
+          clearVals.push({range:`${mois}!${col}${rr}`,values:[['']]});
+          const sid=meta[mois];
+          if(sid!==undefined) clearFmts.push({repeatCell:{
+            range:{sheetId:sid,startRowIndex:rr-1,endRowIndex:rr,startColumnIndex:ci,endColumnIndex:ci+1},
+            cell:{userEnteredFormat:{
+              backgroundColor:{red:1,green:1,blue:1},
+              textFormat:{foregroundColor:{red:0,green:0,blue:0},bold:false,fontSize:9},
+            }},
+            fields:'userEnteredFormat(backgroundColor,textFormat)'
+          }});
+        }
+      });
+      if(clearVals.length) await API.batchUpdateValues(clearVals);
+      if(clearFmts.length) await API.batchUpdateFmt(clearFmts);
+      this.loaderOff();
+      this.toast(`✅ Réservation #${r.id} annulée — planning effacé`);
+      ST.resas=[];
+      await this.loadList();
+    }catch(err){this.loaderOff();this.toast('❌ '+err.message,true);console.error(err);}
+  },
+
+  // Annulation depuis le bouton rouge dans la modale d'édition
+  async cancelResaFromModal(){
+    const r=ST.editingResa; if(!r)return;
+    if(!confirm(`Annuler la réservation #${r.id} — ${r.nom} ?`))return;
+    this.closeEdit();
+    await this.quickCancel(r.id);
+  },
+
   showInvById(id){const row=ST.resas.find(r=>String(r.id)===String(id));if(row)this.showInv(row);},
   closeInv(){this.d.invMod.classList.remove('show');},
 
   downloadPdf(){
-    const d=ST.invData; if(!d) return;
+    const d=ST.invData;if(!d)return;
     const{jsPDF}=window.jspdf;
     const doc=new jsPDF({unit:'mm',format:'a4'});
-    const W=210,M=18; let y=0;
+    const W=210,M=18;let y=0;
     const BX=[107,26,42],WH=[255,255,255],GR=[140,140,140],DK=[34,34,34];
-    // En-tête
     doc.setFillColor(...BX);doc.rect(0,0,W,30,'F');
     doc.setTextColor(...WH);doc.setFontSize(17);doc.setFont('helvetica','bold');
     doc.text('HOTEL CHEZ ALICE',W/2,11,{align:'center'});
@@ -1107,11 +1303,9 @@ const A = {
     doc.text('Ranohira - Isalo - Madagascar',W/2,17,{align:'center'});
     doc.text('Tel : 038 66 284 44 / 033 07 134 44  |  chezalice@yahoo.fr',W/2,23,{align:'center'});
     y=38;
-    // Titre
     doc.setTextColor(...BX);doc.setFontSize(13);doc.setFont('helvetica','bold');
     doc.setDrawColor(...BX);doc.rect(M,y-7,W-2*M,11);
     doc.text('FACTURE PRO FORMA',W/2,y,{align:'center'});y+=14;
-    // Méta
     const meta=[
       ['Date :',U.todayFRlong()],['Ref. N :',String(d.row.id)],
       ['Client :',d.row.nom],['Contact :',d.row.contact||'-'],
@@ -1127,7 +1321,6 @@ const A = {
     y+=Math.ceil(meta.length/2)*7+5;
     const sep=()=>{doc.setDrawColor(220,220,220);doc.line(M,y,W-M,y);y+=4;};
     sep();
-    // Hébergement
     doc.setFontSize(9);doc.setFont('helvetica','bold');doc.setTextColor(...BX);
     doc.text('HEBERGEMENT',M,y);y+=6;
     d.hebLines.forEach(l=>{
@@ -1138,7 +1331,6 @@ const A = {
       doc.text(`${U.fmtArPdf(l.prix)} x ${l.nuits} nuit${l.nuits>1?'s':''}`,M+4,y+4);
       y+=10;
     });
-    // Suppléments
     if(d.supplLines.length){
       sep();
       doc.setFontSize(9);doc.setFont('helvetica','bold');doc.setTextColor(...BX);
@@ -1153,26 +1345,28 @@ const A = {
       });
     }
     sep();
-    // Restauration
+    // ✨ CORRIGÉ : titre section restauration avec mention demi-pension
     doc.setFontSize(9);doc.setFont('helvetica','bold');doc.setTextColor(...BX);
-    doc.text('RESTAURATION',M,y);y+=6;
+    const resTitre=d.row.pd==='Demi-pension'?'RESTAURATION - DEMI-PENSION (PD + DINER)':'RESTAURATION';
+    doc.text(resTitre,M,y);y+=6;
     if(d.restoLines.length){
       d.restoLines.forEach(l=>{
         doc.setFont('helvetica','normal');doc.setTextColor(...DK);doc.setFontSize(10);
-        doc.text(l.label,M,y);doc.text(U.fmtArPdf(l.total),W-M,y,{align:'right'});y+=7;
+        doc.text(l.label,M,y);doc.text(U.fmtArPdf(l.total),W-M,y,{align:'right'});
+        doc.setFontSize(8);doc.setTextColor(...GR);
+        doc.text(`${U.fmtArPdf(l.prix)} / pers. / nuit`,M+4,y+4);
+        y+=10;
       });
     } else {
       doc.setFont('helvetica','italic');doc.setTextColor(...GR);doc.setFontSize(9);
       doc.text('Aucun petit-dejeuner precis',M,y);y+=7;
     }
     y+=4;
-    // Total
     doc.setFillColor(...BX);doc.rect(M,y,W-2*M,11,'F');
     doc.setTextColor(...WH);doc.setFont('helvetica','bold');doc.setFontSize(12);
     doc.text('TOTAL GENERAL',M+4,y+7.5);
     doc.text(U.fmtArPdf(d.grand),W-M-4,y+7.5,{align:'right'});
     y+=18;
-    // Pied
     doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(...GR);
     doc.setDrawColor(220,220,220);doc.line(M,y,W-M,y);y+=4;
     ['Paiement sur place le jour du depart  -  Especes / Virement bancaire / Mobile Money',
